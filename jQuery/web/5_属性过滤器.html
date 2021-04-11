@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <style type="text/css">
+            div{
+                background-color: greenyellow;
+            }
+            .son{
+                background-color: aqua;
+            }
+        </style>
+    </head>
+    <body>
+        <script src="jquery-3.6.0.min.js"></script>
+        <script type="text/javascript">
+            function  fun1(){
+                $("div[title]").css("background-color","red")
+            }
+            function  fun2(){
+                $("div[title=test]").css("background-color","red")
+            }
+            function  fun3(){
+                $("div[title!=test]").css("background-color","red")
+            }
+            function  fun4(){
+                $("div[title^=te]").css("background-color","red")
+            }
+            function  fun5(){
+                $("div[title$=st]").css("background-color","red")
+            }
+            function  fun6(){
+                $("div[title*=es]").css("background-color","red")
+            }
+            function  fun7(){
+                $("div[title*=es][id]").css("background-color","red")
+            }
+            function  fun8(){
+                $("div[title*=es]:first").css("background-color","red")
+            }
+        </script>
+        <div id="one" title="test">one</div>
+        <div class="c02" title="myTest">two</div>
+        <div>
+            two
+            <div id="three" class="son">three</div>
+            <div title="test" class="son">three</div>
+        </div>
+        <div title="testCase" id="">five</div>
+        <div>six</div>
+        <span>span</span>
+        <br/><br/>
+        <input type="button" id="btn01" value="选择包含手动赋值的title属性的div" onclick="fun1()">
+        <input type="button" id="btn02" value="选择title属性为test的div" onclick="fun2()">
+        <input type="button" id="btn03" value="选择title属性不为test的div" onclick="fun3()">
+        <input type="button" id="btn04" value="选择title属性以'te'开头的div" onclick="fun4()">
+        <input type="button" id="btn05" value="选择title属性以'st'结尾的div" onclick="fun5()">
+        <input type="button" id="btn06" value="选择title属性包含'es'的div" onclick="fun6()">
+        <input type="button" id="btn07" value="选择title属性包含'es'并含有id属性的div" onclick="fun7()">
+        <input type="button" id="btn08" value="选择title属性包含'es'的第一个div" onclick="fun8()">
+    </body>
+</html>

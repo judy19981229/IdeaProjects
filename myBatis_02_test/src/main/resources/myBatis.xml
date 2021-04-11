@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--指定properties文件的位置，从类路径根开始找文件-->
+    <properties resource="jdbc.properties" />
+
+    <settings>
+        <!--mybatis.xml 文件加入日志配置，可以在控制台输出执行的 sql 语句和参数-->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+
+    <!--分页功能-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor" />
+    </plugins>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="dao/studentsDao.xml"/>
+        <!--
+        如果有多个xml文件，可以使用包名,这个包中所有xml文件一次性都能夹在给myBatis
+        使用package的要求：
+        1。mapper文件名需要和接口名一样，区分大小写的一样
+        2。mapper文件和dao接口在同一目录
+        name:xml文件所在的包名
+        <package name="dao"/>
+        -->
+    </mappers>
+</configuration>

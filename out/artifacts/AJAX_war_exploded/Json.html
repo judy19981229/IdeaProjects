@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <script src="jquery-3.6.0.js"></script>
+        <script type="text/javascript">
+            function fun1(){
+                var xmlHttp=new XMLHttpRequest();
+                xmlHttp.onreadystatechange=function(){
+                    if(xmlHttp.readyState==4 && xmlHttp.status==200){
+                        var data=xmlHttp.responseText;
+                        alert("得到数据类型"+typeof data)
+                        var jsonObj=eval("("+data+")");
+                        alert("转换后的数据类型"+typeof jsonObj);
+                        alert(jsonObj.deptName);
+                    }
+                }
+                xmlHttp.open("get","/myWeb/Json_one",true)
+                xmlHttp.send();
+            }
+        </script>
+
+        <input type="button" value="接收服务端返回的Dept对象" onclick="fun1()"/>
+    </body>
+</html>

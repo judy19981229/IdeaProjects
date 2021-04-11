@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="lib3">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../Downloads/JAVA第二天笔记代码/课堂完整代码/Java/HeiHeiHei/out/artifacts/HeiHeiHei_war_exploded/WEB-INF/lib/junit-4.13.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Downloads/JAVA第二天笔记代码/课堂完整代码/Java/HeiHeiHei/out/artifacts/HeiHeiHei_war_exploded/WEB-INF/lib/mysql-connector-java-8.0.22.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Downloads/JAVA第二天笔记代码/课堂完整代码/Java/HeiHeiHei/out/artifacts/HeiHeiHei_war_exploded/WEB-INF/lib/fastjson-1.2.75.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

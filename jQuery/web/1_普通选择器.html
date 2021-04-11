@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        div{
+            background-color: greenyellow;
+            width: 200px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        function fun1(){
+            $("#one").css("background-color","red");
+        }
+        function fun2(){
+            $(".two").css("background-color","red");
+        }
+        function fun3(){
+            $("div").css("background-color","red");
+        }
+        function fun4(){
+            $("*").css("background-color","red");
+        }
+        function fun5(){
+            $("#one,span").css("background-color","red");
+        }
+
+    </script>
+    <div id="one" class="two"></div><br/>
+    <div class="two"></div><br/>
+    <div></div><br/>
+    <span>我是span标签</span>
+
+    <br/><br/>
+    <input type="button" id="btn01" value="选择id为one的元素" onclick="fun1()"/>
+    <input type="button" id="btn02" value="选择class为two的元素" onclick="fun2()"/>
+    <input type="button" id="btn03" value="选择所有div元素" onclick="fun3()"/>
+    <input type="button" id="btn04" value="选择所有元素" onclick="fun4()"/>
+    <input type="button" id="btn05" value="选择id为one和所有span元素" onclick="fun5()"/>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        div{
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        function fun1(){
+            $("body div").css("background-color","red")
+        }
+        function fun2(){
+            $("body>div").css("background-color","red")
+        }
+        function fun3(){
+            $("#one+div").css("background-color","red")
+        }
+        function fun4(){
+            $("#two~div").css("background-color","red")
+        }
+        function fun5(){
+            $("#two").siblings("div").css("background-color","red")
+        }
+    </script>
+    <div id="one">div01</div>
+    <div id="two">div02</div>
+    <div>
+        div03
+        <div class="son">div03的子div</div>
+        <div class="son">div03的子div</div>
+    </div>
+    <div>div04</div><br/>
+    <span>span</span><br/><br/>
+    <input type="button" id="btn01" value="选择body中所有div子标签" onclick="fun1()">
+    <input type="button" id="btn02" value="选择body下的直接子标签" onclick="fun2()">
+    <input type="button" id="btn03" value="选择id为one的下一个兄弟div" onclick="fun3()">
+    <input type="button" id="btn04" value="选择id为two的所有后面的兄弟div" onclick="fun4()">
+    <input type="button" id="btn05" value="选择id为two的所有兄弟div" onclick="fun5()">
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <script src="jquery-3.6.0.js"></script>
+        <script type="text/javascript">
+            window.onload=function(){
+                $(":checkbox[name]").click(fun);
+                function fun(){
+                    var num=$(":checkbox[name]:checked").length;
+                    if(num==0){
+                        $(":button").prop("disabled",true);
+                    } else if(num==1){
+                        $(":button").prop("disabled",false);
+                    } else{
+                        $(":button:first").prop("disabled",false);
+                        $(":button:last").prop("disabled",true);
+                    }
+                }
+            }
+            var param="";
+            function fun1(){
+                var xmlHttp=new XMLHttpRequest();
+                xmlHttp.onreadystatechange=function(){
+                    if(xmlHttp.readyState==4 && xmlHttp.status==200){
+                        var data=xmlHttp.responseText;
+                        callBack(data);
+                    }
+                }
+                //重点在这里进行参数的拼接
+                $(":checkbox[name=data]:checked").each(check);
+                xmlHttp.open("get","/myWeb/dept_delete?"+param,true);
+                xmlHttp.send();
+            }
+            function check(index,dmoObj){
+                if(param==""){
+                    param="empNo="+$(dmoObj).val();
+                } else{
+                    param+="&empNo="+$(dmoObj).val();
+                }
+            }
+            function callBack(data){
+                if(data==1){
+                    $(":checkbox:gt(0):checked").parent().parent().remove();
+                } else{
+                    alert("服务器正在维护中")
+                }
+            }
+        </script>
+        <center>
+            <form action="/myWeb/dept_delete" mthod="post">
+                <input type="button" value="批处理删除" disabled onclick="fun1()" />
+                <input type="button" value="修改职员信息" disabled onclick="fun2()" />
+                <table border="2">
+                    <tr>
+                        <td>职员编号</td>
+                        <td>职员姓名</td>
+                        <td>职员工资</td>
+                        <td>入职日期</td>
+                        <td><input type="checkbox"/>全选与全不选</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td><input type="checkbox" name="data"/></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td><input type="checkbox" name="data"/></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td><input type="checkbox" name="data"/></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td><input type="checkbox" name="data"/></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>5</td>
+                        <td>5</td>
+                        <td>5</td>
+                        <td><input type="checkbox" name="data"/></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>6</td>
+                        <td>6</td>
+                        <td>6</td>
+                        <td><input type="checkbox" name="data"/></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>7</td>
+                        <td>7</td>
+                        <td>7</td>
+                        <td><input type="checkbox" name="data"/></td>
+                    </tr>
+                </table>
+            </form>
+        </center>
+    </body>
+</html>

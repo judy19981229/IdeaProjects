@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <script src="jquery-3.6.0.min.js"></script>
+        <script type="text/javascript">
+            window.onload=main;
+            function main(){
+                $(":checkbox:first").bind("click",fun1);
+                $(":checkbox:gt(0)").bind("click",fun2);
+                $("table tr:gt(0)").mouseover(fun3);
+                $("table tr:gt(0)").mouseout(fun4);
+            }
+            //复选框的全选与全不选
+            function  fun1(){
+                var flag=$(":checkbox:first").prop("checked");
+                $(":checkbox:gt(0)").prop("checked",flag);
+                fun5();
+            }
+
+            function fun2(){
+                var num=$(":checkbox:gt(0)").length;
+                var selectNum=$(":checkbox:gt(0):checked").length;
+                if(num==selectNum){
+                    $(":checkbox:first").prop("checked",true);
+                } else{
+                    $(":checkbox:first").prop("checked",false);
+                }
+                fun5();
+            }
+            //数据行 鼠标放上去变色
+            function fun3(){
+                $(this).css("background-color","red")
+            }
+            function fun4(){
+                $(this).css("background-color","white")
+            }
+            function fun5(){
+                var selectNum=$(":checkbox:gt(0):checked").length;
+                if(selectNum>0){
+                    $(":button").prop("disabled",false);
+                } else{
+                    $(":button").prop("disabled",true);
+                }
+            }
+        </script>
+        <table border="2">
+            <tr>
+                <td>职员姓名</td>
+                <td>职员职位</td>
+                <td>职员工资</td>
+                <td>
+                    <input type="checkbox" />全选与全不选
+                </td>
+            </tr>
+            <tr>
+                <td>mike</td>
+                <td>初级工程师</td>
+                <td>14000</td>
+                <td><input type="checkbox"/></td>
+            </tr>
+            <tr>
+                <td>smith</td>
+                <td>高级工程师</td>
+                <td>24000</td>
+                <td><input type="checkbox" /></td>
+            </tr>
+            <tr>
+                <td>allen</td>
+                <td>高级工程师</td>
+                <td>34000</td>
+                <td><input type="checkbox"/></td>
+            </tr>
+        </table>
+        <br/>
+        <input type="button" value="删除" disabled/>
+    </body>
+</html>

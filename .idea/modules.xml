@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AJAX/AJAX.iml" filepath="$PROJECT_DIR$/AJAX/AJAX.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/IdeaProjects.iml" filepath="$PROJECT_DIR$/.idea/IdeaProjects.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JDK动态代理/JDK动态代理.iml" filepath="$PROJECT_DIR$/JDK动态代理/JDK动态代理.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JavaWeb/JavaWeb.iml" filepath="$PROJECT_DIR$/JavaWeb/JavaWeb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SSM/SSM.iml" filepath="$PROJECT_DIR$/SSM/SSM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Servlet接口实现类/Servlet接口实现类.iml" filepath="$PROJECT_DIR$/Servlet接口实现类/Servlet接口实现类.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Servlet生命周期/Servlet生命周期.iml" filepath="$PROJECT_DIR$/Servlet生命周期/Servlet生命周期.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SpringMVC/SpringMVC.iml" filepath="$PROJECT_DIR$/SpringMVC/SpringMVC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Spring_01_hello/Spring_01_hello.iml" filepath="$PROJECT_DIR$/Spring_01_hello/Spring_01_hello.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Spring_Transaction/Spring_Transaction.iml" filepath="$PROJECT_DIR$/Spring_Transaction/Spring_Transaction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Spring_web/Spring_web.iml" filepath="$PROJECT_DIR$/Spring_web/Spring_web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Downloads/05-最新版SSM（IDEA全套）/04-Spring/源码/ch03-ioc-homework/ch03-ioc-homework.iml" filepath="$PROJECT_DIR$/../Downloads/05-最新版SSM（IDEA全套）/04-Spring/源码/ch03-ioc-homework/ch03-ioc-homework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jQuery/jQuery.iml" filepath="$PROJECT_DIR$/jQuery/jQuery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myBatis_01_hello/myBatis_01_hello.iml" filepath="$PROJECT_DIR$/myBatis_01_hello/myBatis_01_hello.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myBatis_02_test/myBatis_02_test.iml" filepath="$PROJECT_DIR$/myBatis_02_test/myBatis_02_test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring_myBatis/spring_myBatis.iml" filepath="$PROJECT_DIR$/spring_myBatis/spring_myBatis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/在线考试管理系统/在线考试管理系统.iml" filepath="$PROJECT_DIR$/在线考试管理系统/在线考试管理系统.iml" />
+      <module fileurl="file://$PROJECT_DIR$/订餐会员卡/订餐会员卡.iml" filepath="$PROJECT_DIR$/订餐会员卡/订餐会员卡.iml" />
+      <module fileurl="file://$PROJECT_DIR$/购物车/购物车.iml" filepath="$PROJECT_DIR$/购物车/购物车.iml" />
+      <module fileurl="file://$PROJECT_DIR$/过滤器检测请求合法性/过滤器检测请求合法性.iml" filepath="$PROJECT_DIR$/过滤器检测请求合法性/过滤器检测请求合法性.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+    告诉Spring创建对象
+    声明bean，就是告诉spring要创建某个类的对象
+    id：对象的自定义名称，唯一值，spring通过这个名称找到对象
+    class：类的全限定名称（不能是接口，因为spring是反射机制创建对象，必须使用类）
+    spring就完成了 SomeService someService = new serviceImpl()
+    spring是把创建好的对象放在map中，spring框架有一个map存放对象
+    springMap.put(id的值，对象）
+    例如：springMap.put("someService",new serviceImpl() );
+    一个bean标签声明一个对象
+    -->
+    <bean id="someService" class="service.ServiceImpl">
+    </bean>
+
+    <bean id="someService1" class="service.ServiceImpl" scope="prototype">
+    </bean>
+
+    <bean id="nowDate" class="java.util.Date" >
+    </bean>
+
+    <!--
+    1、set注入：spring调用类的set方法，在set方法中完成属性赋值
+    1）简单类型的注入：基本数据类型、String、包装类（Integer）都是简单类型
+    <bean id="" class="">
+        <property name="属性名" value="属性值" /> 一个property只能给一个属性赋值
+    </bean>
+    2）引用类型的set注入：spring调用类的set方法
+    <bean id="" class="">
+        <property name="属性名" ref="引用bean的id" />
+    </bean>
+    2、构造注入：spring调用有参构造方法，在创建对象的同时，在构造方法中给属性赋值
+    构造注入使用<constructor-arg>标签
+    <constructor-arg>标签：一个<constructor-arg>表示构造方法一个参数
+    <constructor-arg>标签属性：
+        name：表示构造方法形参名
+        index：表示构造方法的参数的位置，参数从左往右位置是0，1，2的顺序
+        value：构造方法的形参类型是简单类型的的，使用value赋值
+        ref：构造方法的形参类型是引用类型的，使用ref赋值
+    -->
+    <bean id="myStudentSet" class="ba01.Student">
+        <property name="age" value="18" />
+        <property name="name" value="mike" />
+        <property name="school" ref="school"/>
+        <!--
+        property中的name只看有没有set方法，不看是否存在该属性
+        即使属性是int/Integer，属性值也必须放在“”中
+        -->
+    </bean>
+    <bean id="school" class="ba01.School">
+        <property name="name" value="华中科技大学"/>
+        <property name="loc" value="武汉市"/>
+    </bean>
+    <bean id="myStudentConstructor" class="ba01.Student">
+        <constructor-arg name="age" value="19" />
+        <constructor-arg name="name" value="smith" />
+        <constructor-arg name="school" ref="school" />
+    </bean>
+
+    <bean id="myStudentByName" class="ba01.Student" autowire="byName">
+        <property name="age" value="19" />
+        <property name="name" value="smith" />
+    </bean>
+    <bean id="myStudentByType" class="ba01.Student" autowire="byType">
+        <property name="age" value="23" />
+        <property name="name" value="alien" />
+    </bean>
+</beans>
+
+
+<!--
+    Spring的配置文件
+    1.beans：是根标签，Spring把Java对象称为bean
+    2.spring-beans.xsd 是约束文件，和myBatis中的dtd是一样的
+-->

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        function  fun1(){
+            window.alert("输入的值为"+$(":text").val());
+        }
+        function  fun2(){
+            window.alert("输入的值为"+$(":password").val());
+        }
+        function  fun3(){
+            $(":radio").each(sex);
+        }
+        function sex(index,domObj){
+            window.alert("第"+(index+1)+"个性别为"+domObj.value);
+        }
+        function  fun4(){
+            window.alert("上传的文件为"+$(":file").val());
+        }
+        function  fun5(){
+            $(":checkbox:checked").each(interest);
+        }
+        function interest(index,domObj){
+            window.alert(domObj.value);
+        }
+    </script>
+    <form id="myForm" action="">
+        <table>
+            <tr>
+                <td>用户名</td>
+                <td><input type="text" name="userName"/></td>
+            </tr>
+            <tr>
+                <td>密码</td>
+                <td><input type="password" name="password"/></td>
+            </tr>
+            <tr>
+                <td>性别</td>
+                <td>
+                    <input type="radio" name="sex" value="man"/>男
+                    <input type="radio" name="sex" value="woman"/>女
+                </td>
+            </tr>
+            <tr>
+                <td>照片</td>
+                <td><input type="file" name="photo"/></td>
+            </tr>
+            <tr>
+                <td>兴趣</td>
+                <td>
+                    <input type="checkbox" name="interest" value="smoke"/>抽烟
+                    <input type="checkbox" name="interest" value="drink"/>喝酒
+                    <input type="checkbox" name="interest" value="hair"/>烫头
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="提交" /></td>
+            </tr>
+        </table>
+    </form>
+    <br/><br/><br/>
+    <input type="button" id="btn01" value="选择文本输入框并输出用户输入的值" onclick="fun1()">
+    <input type="button" id="btn02" value="选择密码输入框并输出用户输入的密码" onclick="fun2()">
+    <input type="button" id="btn03" value="选择单选框的value属性值" onclick="fun3()">
+    <input type="button" id="btn04" value="选择文件上传框并输出用户选择的文件" onclick="fun4()">
+    <input type="button" id="btn05" value="选择复选框并输出用户选择的值" onclick="fun5()">
+</body>
+</html>

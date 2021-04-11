@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <script src="jquery-3.6.0.min.js"></script>
+        <script type="text/javascript">
+            function fun1(){
+                $("#one").remove();
+            }
+            function fun2(){
+                $("#two").empty();
+            }
+        </script>
+        大臣1<select id="one">
+            <option value="">大儿子</option>
+            <option value="">小儿子</option>
+        </select>
+        大臣2<select id="two">
+        <option value="">大儿子</option>
+        <option value="">小儿子</option>
+        </select>
+        <br/><br/>
+        <input type="button" value="杀大臣1全家" onclick="fun1()"/>
+        <input type="button" value="杀大臣2儿子" onclick="fun2()"/>
+    </body>
+</html>

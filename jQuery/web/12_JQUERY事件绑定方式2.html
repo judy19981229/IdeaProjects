@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <script src="jquery-3.6.0.min.js"></script>
+        <script type="text/javascript">
+            function  fun1(){
+                $(":button:lt(3)").bind("click",fun2);
+            }
+            function fun2(){
+                alert($(this).val());
+            }
+            function fun3(){
+                $(":button:lt(2)").unbind("click")
+            }
+        </script>
+        <input type="button" value="我是大哥"/>
+        <input type="button" value="我是二弟"/>
+        <input type="button" value="我是三弟"/>
+        <br/><br/>
+        <input type="button" value="为前三个button绑定onclick" onclick="fun1()"/>
+        <input type="button" value="为前两个button解除onclick绑定" onclick="fun3()" />
+    </body>
+</html>

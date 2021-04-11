@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="在线考试管理系统:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="在线考试管理系统" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/../Downloads/apache-tomcat-9.0.43/lib/servlet-api.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../Downloads/mysql-connector-java-8.0.22/mysql-connector-java-8.0.22.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../Downloads/apache-tomcat-9.0.43/lib/jsp-api.jar" />
+          <element id="library" level="project" name="commons-beanutils-1.8.31" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="在线考试管理系统/web/Web" />
+    </root>
+  </artifact>
+</component>

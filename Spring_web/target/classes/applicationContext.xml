@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       https://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!--配置druid连接池，连接数据库-->
+    <bean id="myDataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!--声明myBatis中所提供的SqlSessionFactoryBean类
+    这个类内部创建SqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--把数据库连接池赋给了dataSource属性-->
+        <property name="dataSource" ref="myDataSource"/>
+        <!--myBatis主配置文件位置,文件路径使用classpath：-->
+        <property name="configLocation" value="classpath:myBatis.xml"/>
+    </bean>
+
+    <!--创建dao对象，使用sqlSession的getMapper（StudentDao.class)
+    MapperScannerConfigurer 在内部调用getMapper()生成每个dao接口的代理对象
+    -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--指定SqlSessionFactory对象的id-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--指定dao接口所在的包名，会扫描这个包中的所有接口,多个包可以用，分割
+        把每个接口都执行一次getMapper()方法，得到每个接口的dao对象
+        创建好的dao对象放入到spring的容器中(接口名首字母小写)-->
+        <property name="basePackage" value="dao"/>
+    </bean>
+
+    <!--声明事物管理器对象-->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="myDataSource" />
+    </bean>
+
+    <!--开启事物注解驱动，告诉spring使用注解管理事物，创建代理对象-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--扫描包中的注解-->
+    <context:component-scan base-package="entity"/>
+    <context:component-scan base-package="service"/>
+
+    <!--自动生成动态代理对象-->
+    <aop:aspectj-autoproxy/>
+</beans>

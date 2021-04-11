@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<body>
+    <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        function selectAll() {
+            var flag=$("#select").prop("checked");
+            $(".sel").prop("checked",flag);
+        }
+    </script>
+    <input type="checkbox" id="select" onclick="selectAll()"/>全选
+    <input type="checkbox" class="sel" />抽烟
+    <input type="checkbox" class="sel" />喝酒
+    <input type="checkbox" class="sel" />烫头
+</body>
+</html>

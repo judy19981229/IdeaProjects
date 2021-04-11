@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <style type="text/css">
+            span{
+                color:red;
+                font-size: 12px;
+            }
+        </style>
+    </head>
+    <body>
+        <!--引入jquery的在线包-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="jquery-3.6.0.min.js"></script>
+        <script type="text/javascript">
+            window.onload=function(){
+                $(":text:first").blur(check);
+                function check(){
+                    var data = "userName="+$("#userName").val();
+                    $.get("/myWeb/check_user",data,callBack);
+                    function callBack(param) {
+                        if(param<1){
+                            $("#userNameError").text("");
+                            $(":submit").prop("disabled",false);
+                        } else{
+                            $("#userNameError").text("用户名已存在，请重试");
+                            $(":submit").prop("disabled",true);
+                        }
+                    }
+                }
+            }
+        </script>
+            <form action="/myWeb/add_user" id="form" method="get">
+                <table>
+                    <tr>
+                        <td>用户姓名</td>
+                        <td>
+                            <input type="text" name="userName" id="userName" />
+                            <span id="userNameError"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>用户密码</td>
+                        <td>
+                            <input type="text" name="password" id="password" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>性别</td>
+                        <td>
+                            <input type="radio" name="sex" value="男" />男
+                            <input type="radio" name="sex" value="女" />女
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>用户邮箱</td>
+                        <td>
+                            <input type="text" name="email" id="email"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="用户注册" disabled /></td>
+                        <td><input type="reset" value="复位" /></td>
+                    </tr>
+                </table>
+            </form>
+    </body>
+</html>

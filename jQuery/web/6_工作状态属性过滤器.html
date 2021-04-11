@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <script src="jquery-3.6.0.min.js"></script>
+        <script type="text/javascript">
+            function  fun1(){
+                $(":text:enabled").val("可用文本框")
+            }
+            function  fun2(){
+                $(":text:disabled").val("不可用文本框")
+            }
+            function  fun3(){
+                $(":checkbox:checked").each(interest);
+            }
+            function interest(index,domObj){
+                window.alert("第"+(index+1)+"个兴趣为"+domObj.value)
+            }
+            function  fun4(){
+                //window.alert($("select>option:checked").val())
+                window.alert(
+
+                )
+            }
+        </script>
+        <input type="text" id="text01" value="value01"/><br/>
+        <input type="text" id="text02" value="value02" disabled/><br/>
+        <input type="text" id="text03" value="value03"/><br/>
+        <input type="text" id="text04" value="value04" disabled/><br/>
+        <input type="checkbox" name="interest" value="reading" checked />读书
+        <input type="checkbox" name="interest" value="food" />美食
+        <input type="checkbox" name="interest" value="travel" checked />旅游
+        <input type="checkbox" name="interest" value="music" />音乐
+        <input type="checkbox" name="interest" value="shopping" checked />购物
+        <br/><br/>
+        <select id="city">
+            <option value="bj" title="beijing" selected>北京</option>
+            <option value="sh" title="shanghai">上海</option>
+            <option value="gz" title="guangzhou">广州</option>
+            <option value="sz" title="shenzhen">深圳</option>
+        </select>
+        <br/><br/>
+        <input type="button" id="btn01" value="选择可用文本框并修改其值" onclick="fun1()"/>
+        <input type="button" id="btn02" value="选择不可用文本框并修改其值" onclick="fun2()"/>
+        <input type="button" id="btn03" value="选择复选框被选中的元素" onclick="fun3()"/>
+        <input type="button" id="btn04" value="选择下拉列表被选中的元素" onclick="fun4()"/>
+    </body>
+
+</html>

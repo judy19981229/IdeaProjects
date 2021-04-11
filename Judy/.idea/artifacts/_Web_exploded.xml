@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="在线考试管理系统:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="在线考试管理系统/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="javaee-facet-classes" facet="在线考试管理系统/web/Web" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$USER_HOME$/Downloads/mysql-connector-java-8.0.22/mysql-connector-java-8.0.22.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

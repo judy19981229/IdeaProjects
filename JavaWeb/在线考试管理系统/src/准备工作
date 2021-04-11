@@ -1,0 +1,29 @@
+任务：在线考试管理系统-用户信息管理模块
+
+子任务：
+    用户信息注册
+    用户信息查询
+    用户信息删除
+    用户信息更新
+
+准备工作：
+    1.创建用户信息表 Users.frm
+    create table Users(
+        userId  int primary key auto_increment, #用户编号
+        userName varchar(50), #用户名称
+        password varchar(50), #用户密码
+        sex      char(1)    , #用户性别 '男' '女'
+        email    varchar(50)  #用户邮箱
+    )
+select * from users
+insert into users values(1,'mike','123','男','mike@163.com')
+insert into users(userName,password,sex,email)
+values('tom','123','女','tom@163.com')
+
+    auto_increment,自增序列 i++
+    在插入时，如果不给定具体用户编号，此时根据auto_increment的值递增添加
+    就算把之前的数据删除了，auto_increment还是会在之前数据的基础上自增
+
+    2.在src下创建users实体类
+    3.在src下JdbcUtil工具类的复用
+    4.在web中的WEB-INf下创建lib文件夹，存放jdbc实现的jar包

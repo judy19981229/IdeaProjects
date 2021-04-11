@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <script src="jquery-3.6.0.min.js"></script>
+        <script type="text/javascript">
+            function fun1(){
+                //1.创建一个异步请求对象
+                var xmlHttp=new XMLHttpRequest();
+                //2.为异步请求对象绑定工作状态监听器
+                xmlHttp.onreadystatechange=function(){
+                    if(xmlHttp.readyState==4 && xmlHttp.status==200){
+                        var data=xmlHttp.responseText;
+                        alert("得到的数据"+data)
+                        callBack(data)
+                    }
+                }
+                //3.初始化异步请求对象
+                var param=document.getElementById("name").value;
+                xmlHttp.open("get","/myWeb/dept_check?deptName="+param,true)
+                //4.通知异步请求对象代替浏览器发送请求协议包
+                xmlHttp.send();
+            }
+            function callBack(data){
+                if(data==0){
+                    document.getElementById("myFont").innerText="部门名称可以使用";
+                } else{
+                    document.getElementById("myFont").innerText="部门已经存在，不可以使用";
+                }
+
+            }
+        </script>
+    </head>
+    <body>
+        <center>
+            <form action="/myWeb/dept_add" mthod="post">
+                部门编号<input type="text" name="deptNo"/><br/>
+                部门名称<input type="text" name="deptName" id="name" onblur="fun1()"/>
+                <font color="red" id="myFont">*</font><br/>
+                部门位置<input type="text" name="deptLoc"/><br/>
+                <input type="submit" value="添加部门"><br/>
+            </form>
+        </center>
+    </body>
+</html>

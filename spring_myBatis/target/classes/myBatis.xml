@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--mybatis.xml 文件加入日志配置，可以在控制台输出执行的 sql 语句和参数-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <!--设置别名-->
+    <typeAliases>
+        <!--name：实体类所在的包名-->
+        <package name="entity"/>
+    </typeAliases>
+
+    <mappers>
+        <!--name是包名，可以加载包中的所有xml文件-->
+        <package name="dao"/>
+    </mappers>
+</configuration>

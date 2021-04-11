@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/Spring_web" />
+    <file type="web" url="file://$PROJECT_DIR$/SpringMVC" />
+    <file type="web" url="file://$PROJECT_DIR$/SSM" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/myBatis_01_hello/pom.xml" />
+        <option value="$PROJECT_DIR$/myBatis_02_test/pom.xml" />
+        <option value="$PROJECT_DIR$/Spring_01_hello/pom.xml" />
+        <option value="$PROJECT_DIR$/../Downloads/05-最新版SSM（IDEA全套）/04-Spring/源码/ch03-ioc-homework/pom.xml" />
+        <option value="$PROJECT_DIR$/spring_myBatis/pom.xml" />
+        <option value="$PROJECT_DIR$/Spring_Transaction/pom.xml" />
+        <option value="$PROJECT_DIR$/Spring_web/pom.xml" />
+        <option value="$PROJECT_DIR$/SpringMVC/pom.xml" />
+        <option value="$PROJECT_DIR$/SSM/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/../Downloads/JAVA第二天笔记代码/课堂完整代码/Java/HeiHeiHei/HeiHeiHei1.iml" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

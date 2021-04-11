@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <script src="jquery-3.6.0.min.js"></script>
+        <script type="text/javascript">
+            function  fun1(){
+                var $obj=$("select>option:selected");
+                window.alert("value="+$obj.val());
+                window.alert("title="+$obj.attr("title"));
+                window.alert("selected="+$obj.prop("selected"));
+                window.alert("文字显示内容="+$obj.text());
+            }
+        </script>
+        <select id="city" onchange="fun1()">
+            <option value="bj" title="beijing" selected>北京</option>
+            <option value="sh" title="shanghai">上海</option>
+            <option value="gz" title="guangzhou">广州</option>
+            <option value="sz" title="shenzhen">深圳</option>
+        </select>
+    </body>
+</html>

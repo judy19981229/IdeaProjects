@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <script src="jquery-3.6.0.min.js"></script>
+        <script type="text/javascript">
+            window.onload=fun1;
+            function  fun1(){
+                $(":button").click(fun2);
+            }
+            function fun2(){
+                alert($(this).val());
+            }
+        </script>
+        <input type="button" value="我是大哥"/>
+        <input type="button" value="我是二弟"/>
+        <input type="button" value="我是三弟"/>
+    </body>
+</html>

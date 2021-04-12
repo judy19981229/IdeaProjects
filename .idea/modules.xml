@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AJAX/AJAX.iml" filepath="$PROJECT_DIR$/AJAX/AJAX.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CRM/CRM.iml" filepath="$PROJECT_DIR$/CRM/CRM.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/IdeaProjects.iml" filepath="$PROJECT_DIR$/.idea/IdeaProjects.iml" />
       <module fileurl="file://$PROJECT_DIR$/JDK动态代理/JDK动态代理.iml" filepath="$PROJECT_DIR$/JDK动态代理/JDK动态代理.iml" />
       <module fileurl="file://$PROJECT_DIR$/JavaWeb/JavaWeb.iml" filepath="$PROJECT_DIR$/JavaWeb/JavaWeb.iml" />

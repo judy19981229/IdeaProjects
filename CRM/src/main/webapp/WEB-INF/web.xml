@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+         https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+    <!--声明，注册springmvc的核心对象DispatcherServlet
+    需要在Tomcat服务器启动后，创建DispatcherServlet对象的实例
+    因为DispatcherServlet在他的创建过程中，会同时创建springmvc容器对象
+    读取springmvc的配置文件，把这个配置文件中的对象都创建好，当用户发起请求时，
+    可以直接使用对象了。
+
+    servlet的初始化会执行init()方法，DispatcherServlet在init()中{
+        创建容器，读取配置文件
+        WebApplicationContext webApplicationContext=
+            new ClassPathXmlApplicationContext("dispatcherServlet.xml");
+        把容器对象放入到ServletContext中
+        getServletContext().setAttribute(key,ctx);
+    }-->
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--自定义springmvc读取的配置文件的位置-->
+        <init-param>
+            <!--springmvc的配置文件的位置的属性-->
+            <param-name>contextConfigLocation</param-name>
+            <!--指定自定义文件的位置-->
+            <param-value>classpath:dispatcherServlet.xml</param-value>
+        </init-param>
+        <!--在tomcat启动后，创建Servlet对象
+        load-on-startup：表示tomcat启动后创建对象的顺序，
+        它的值是整数（大于等于0），数值越小，tomcat创建对象的时间越早-->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!--注册spring的监听器，创建Spring容器-->
+    <context-param>
+        <!--表示配置文件的路径，自定义-->
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+    <!--注册监听器-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <!--使用框架的时候，url-pattern可以使用两种值
+        1.使用拓展名的方式，语法*.xxx,(xxx是自定义的拓展名，常用的方式*.do,*.action,*.mvc等等)
+        http://localhost:8080/myWeb/some.do(这时候就可以写*.do，所有do结尾的请求都会交给该servlet处理）
+        2.使用斜杠"/",当你的项目中使用了/，会替代tomcat中的default，不可以处理静态资源
+        没有控制器对象能处理静态资源的访问，所以静态资源都是404，但是动态资源是可以访问的
+        -->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!--注册声明过滤器，解决post请求乱码的问题-->
+    <filter>
+        <filter-name>characterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <!--设置项目中使用的字符编码-->
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+        <!--强制请求对象(HttpServletRequest)使用encoding编码的值-->
+        <init-param>
+            <param-name>forceRequestEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <!--强制应答对象(HttpServletResponse)使用encoding编码的值-->
+        <init-param>
+            <param-name>forceResponseEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>characterEncodingFilter</filter-name>
+        <!--/*表示强制所有的请求先通过过滤器处理-->
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+</web-app>

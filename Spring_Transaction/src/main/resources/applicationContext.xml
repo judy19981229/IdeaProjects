@@ -40,7 +40,7 @@
         <!--指定dao接口所在的包名，会扫描这个包中的所有接口,多个包可以用，分割
         把每个接口都执行一次getMapper()方法，得到每个接口的dao对象
         创建好的dao对象放入到spring的容器中(接口名首字母小写)-->
-        <property name="basePackage" value="workbench.dao"/>
+        <property name="basePackage" value="workbench.settings.dao"/>
     </bean>
 
     <!--声明事物管理器对象-->
@@ -73,14 +73,14 @@
         id：切入点表达式的名称，唯一值
         expression:切入点表达式，指定哪些类要使用事物，aspectj会创建代理对象
         在这里需要指定上面的buy方法，才能正确配置事物-->
-        <aop:pointcut id="servicePt" expression="execution(* workbench.service.SalesGoodsServiceImpl.buy(..))"/>
+        <aop:pointcut id="servicePt" expression="execution(* workbench.settings.service.SalesGoodsServiceImpl.buy(..))"/>
         <!--配置增强器,为servicePt中的所有方法配置事物-->
         <aop:advisor advice-ref="myAdvice" pointcut-ref="servicePt" />
     </aop:config>
 
     <!--扫描包中的注解-->
-    <context:component-scan base-package="workbench.entity"/>
-    <context:component-scan base-package="workbench.service"/>
+    <context:component-scan base-package="workbench.settings.entity"/>
+    <context:component-scan base-package="workbench.settings.service"/>
 
     <!--自动生成动态代理对象-->
     <aop:aspectj-autoproxy/>

@@ -11,7 +11,7 @@
        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!--扫描注解-->
-    <context:component-scan base-package="workbench.controller"/>
+    <context:component-scan base-package="workbench.settings.controller"/>
 
     <!--配置视图解析器，设置视图文件的路径
     配置了视图解析器后，可以使用逻辑名称（文件名），指定视图-->

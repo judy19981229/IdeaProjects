@@ -36,7 +36,7 @@ public class testMybatis {
         //5.【重要】获取SqlSession对象，从SqlSessionFactory中获取SqlSession
         SqlSession sqlSession= factory.openSession();
         //6.【重要】指定执行的sql语句的标识。 sql映射文件中的namespace+"."+标签的id值
-        String sqlId="workbench.dao.studentsDao"+"."+"insertStudents";
+        String sqlId="workbench.settings.dao.studentsDao"+"."+"insertStudents";
         //7.执行sql语句，通过sqlId找到语句
         students student =new students(1004,"赵六","zhaoliu@sina.com",16);
         int result=sqlSession.insert(sqlId,student);
@@ -49,7 +49,7 @@ public class testMybatis {
         //5.【重要】获取SqlSession对象，从SqlSessionFactory中获取SqlSession
         SqlSession sqlSession= factory.openSession();
         //6.【重要】指定执行的sql语句的标识。 sql映射文件中的namespace+"."+标签的id值
-        String sqlId="workbench.dao.studentsDao"+"."+"deleteStudents";
+        String sqlId="workbench.settings.dao.studentsDao"+"."+"deleteStudents";
         //7.执行sql语句，通过sqlId找到语句
         int result=sqlSession.delete(sqlId,1004+"");
         System.out.println("result="+result);
@@ -61,7 +61,7 @@ public class testMybatis {
         //5.【重要】获取SqlSession对象，从SqlSessionFactory中获取SqlSession
         SqlSession sqlSession= factory.openSession();
         //6.【重要】指定执行的sql语句的标识。 sql映射文件中的namespace+"."+标签的id值
-        String sqlId="workbench.dao.studentsDao"+"."+"findStudents";
+        String sqlId="workbench.settings.dao.studentsDao"+"."+"findStudents";
         //7.执行sql语句，通过sqlId找到语句
         List<students> list=sqlSession.selectList(sqlId);
         for(students stu:list){

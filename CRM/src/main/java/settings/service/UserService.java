@@ -1,4 +1,4 @@
-package service;
+package settings.service;
 
 public interface UserService {
 }

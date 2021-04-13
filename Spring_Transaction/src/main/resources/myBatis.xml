@@ -13,11 +13,11 @@
     <!--设置别名-->
     <typeAliases>
         <!--name：实体类所在的包名-->
-        <package name="workbench.entity"/>
+        <package name="workbench.settings.entity"/>
     </typeAliases>
 
     <mappers>
         <!--name是包名，可以加载包中大的所有xml文件-->
-        <package name="workbench.dao"/>
+        <package name="workbench.settings.dao"/>
     </mappers>
 </configuration>

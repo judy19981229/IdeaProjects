@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="workbench.dao.studentsDao">
+<mapper namespace="workbench.settings.dao.studentsDao">
     <!--
         select:表示查询操作
         id:你要执行的sql语句的唯一标识，myBatis会使用这个id的值来找到要执行的sql语句
@@ -10,7 +10,7 @@
         resultType:表示结果类型的，是sql语句执行之后得到的ResultSet
         遍历这个ResultSet得到java对象的类型，值写的是类型的全限定名称(包名+类名)
     -->
-    <select id="findStudents" resultType="workbench.entity.students">
+    <select id="findStudents" resultType="workbench.settings.entity.students">
         select * from students where id=1001
     </select>
 </mapper>

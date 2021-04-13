@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="workbench.dao.StudentDao">
+<mapper namespace="workbench.settings.dao.StudentDao">
     <select id="selectStudent" resultType="Student">
         select id,name,email,age from students
     </select>

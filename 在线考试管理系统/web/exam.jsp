@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="workbench.entity.Questions" %><%--
+<%@ page import="workbench.settings.entity.Questions" %><%--
   Created by IntelliJ IDEA.
   User: judy
   Date: 2021/3/13

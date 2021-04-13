@@ -1,4 +1,4 @@
-package entity;
+package settings.entity;
 
 public class User {
     //日期+时间：年月日时分秒 yyyy-mm-dd HH：mm：ss 十九位字符串

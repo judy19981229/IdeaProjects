@@ -1,6 +1,6 @@
-package service;
+package settings.service;
 
-import dao.UserDao;
+import settings.dao.UserDao;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

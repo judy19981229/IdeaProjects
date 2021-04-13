@@ -15,10 +15,10 @@
     例如：springMap.put("someService",new serviceImpl() );
     一个bean标签声明一个对象
     -->
-    <bean id="someService" class="workbench.service.ServiceImpl">
+    <bean id="someService" class="workbench.settings.service.ServiceImpl">
     </bean>
 
-    <bean id="someService1" class="workbench.service.ServiceImpl" scope="prototype">
+    <bean id="someService1" class="workbench.settings.service.ServiceImpl" scope="prototype">
     </bean>
 
     <bean id="nowDate" class="java.util.Date" >

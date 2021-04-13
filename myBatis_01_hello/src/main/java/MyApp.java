@@ -22,7 +22,7 @@ public class MyApp {
         //5.【重要】获取SqlSession对象，从SqlSessionFactory中获取SqlSession
         SqlSession sqlSession= factory.openSession();
         //6.【重要】指定执行的sql语句的标识。 sql映射文件中的namespace+"."+标签的id值
-        String sqlId="workbench.dao.studentsDao"+"."+"findStudents";
+        String sqlId="workbench.settings.dao.studentsDao"+"."+"findStudents";
         //7.执行sql语句，通过sqlId找到语句
         List<students> list=sqlSession.selectList(sqlId);
         for(students stu:list){

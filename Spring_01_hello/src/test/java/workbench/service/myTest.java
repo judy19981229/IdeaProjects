@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class myTest {
-    String config= "service/applicationContext.xml";
+    String config= "settings.service/applicationContext.xml";
     ApplicationContext applicationContext=new ClassPathXmlApplicationContext(config);
     SomeService proxy= (SomeService) applicationContext.getBean("serviceImpl");
     @Test

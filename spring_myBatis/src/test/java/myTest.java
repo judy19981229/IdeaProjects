@@ -1,11 +1,11 @@
-import dao.StudentDao;
-import entity.Star;
-import entity.Student;
+import workbench.dao.StudentDao;
+import workbench.entity.Star;
+import workbench.entity.Student;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import service.StarService;
-import service.StudentService;
+import workbench.service.StarService;
+import workbench.service.StudentService;
 import vo.StarAndClass;
 
 import java.util.List;

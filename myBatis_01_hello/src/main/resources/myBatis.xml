@@ -44,7 +44,7 @@
         一个mapper标签指定一个文件的位置，从类路径开始的路径信息
         target/classes/类路径
         -->
-        <mapper resource="dao/studentsDao.xml"/>
+        <mapper resource="workbench.dao/studentsDao.xml"/>
     </mappers>
 </configuration>
 

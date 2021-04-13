@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-<!--    <settings>
-        &lt;!&ndash;mybatis.xml 文件加入日志配置，可以在控制台输出执行的 sql 语句和参数&ndash;&gt;
+    <settings>
+        <!--mybatis.xml 文件加入日志配置，可以在控制台输出执行的 sql 语句和参数-->
         <setting name="logImpl" value="STDOUT_LOGGING"/>
-    </settings>-->
+    </settings>
 
     <!--设置别名-->
     <typeAliases>

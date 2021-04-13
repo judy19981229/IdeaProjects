@@ -2,9 +2,6 @@ import ba01.Student;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import service.SomeService;
-
-import java.util.Date;
 
 public class myTest {
 

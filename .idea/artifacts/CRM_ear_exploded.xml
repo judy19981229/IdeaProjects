@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="CRM:ear exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/CRM_ear_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="CRM/javaeeApplication/javaEEApplication" />
+    </root>
+  </artifact>
+</component>

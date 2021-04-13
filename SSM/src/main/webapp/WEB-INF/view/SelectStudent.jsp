@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="entity.Student" %>
+<%@ page import="workbench.entity.Student" %>
 <%--
   Created by IntelliJ IDEA.
   User: judy

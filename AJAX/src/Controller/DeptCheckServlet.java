@@ -1,6 +1,6 @@
 package Controller;
 
-import dao.DeptDao;
+import workbench.dao.DeptDao;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

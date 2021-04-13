@@ -28,14 +28,14 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="dao/studentsDao.xml"/>
+        <mapper resource="workbench.dao/studentsDao.xml"/>
         <!--
         如果有多个xml文件，可以使用包名,这个包中所有xml文件一次性都能夹在给myBatis
         使用package的要求：
         1。mapper文件名需要和接口名一样，区分大小写的一样
         2。mapper文件和dao接口在同一目录
         name:xml文件所在的包名
-        <package name="dao"/>
+        <package name="workbench.dao"/>
         -->
     </mappers>
 </configuration>

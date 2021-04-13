@@ -1,15 +1,12 @@
 package Controller;
 
-import dao.DeptDao;
+import workbench.dao.DeptDao;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "DeptDeleteServlet", value = "/dept_delete")
 public class DeptDeleteServlet extends HttpServlet {

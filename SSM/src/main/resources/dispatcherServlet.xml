@@ -11,8 +11,8 @@
        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!--扫描注解-->
-    <context:component-scan base-package="controller"/>
-    <context:component-scan base-package="handler"/>
+    <context:component-scan base-package="workbench.controller"/>
+    <context:component-scan base-package="workbench.handler"/>
 
     <!--配置视图解析器，设置视图文件的路径
     配置了视图解析器后，可以使用逻辑名称（文件名），指定视图-->
@@ -38,7 +38,7 @@
         <mvc:interceptor>
             <!--指定拦截请求的uri地址，可以使用通配符**（任意）-->
             <mvc:mapping path="/do**"/>
-            <bean class="handler.MyInterceptor"/>
+            <bean class="workbench.handler.MyInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

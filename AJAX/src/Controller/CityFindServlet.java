@@ -1,8 +1,7 @@
 package Controller;
 
-import dao.cityDao;
-import entity.city;
-import net.sf.json.JSON;
+import workbench.dao.cityDao;
+import workbench.entity.city;
 import net.sf.json.JSONArray;
 
 
@@ -10,8 +9,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "CityFindServlet", value = "/city_find")

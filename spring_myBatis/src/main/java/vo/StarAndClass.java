@@ -1,8 +1,5 @@
 package vo;
 
-import entity.Classroom;
-import entity.Star;
-
 public class StarAndClass {
     private String id;
     private String name;

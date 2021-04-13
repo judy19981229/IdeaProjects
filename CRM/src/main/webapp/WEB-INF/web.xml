@@ -52,7 +52,7 @@
         2.使用斜杠"/",当你的项目中使用了/，会替代tomcat中的default，不可以处理静态资源
         没有控制器对象能处理静态资源的访问，所以静态资源都是404，但是动态资源是可以访问的
         -->
-        <url-pattern>/</url-pattern>
+        <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 
     <!--注册声明过滤器，解决post请求乱码的问题-->

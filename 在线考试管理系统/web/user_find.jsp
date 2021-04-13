@@ -1,4 +1,4 @@
-<%@ page import="entity.users" %>
+<%@ page import="workbench.entity.users" %>
 <%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.

@@ -1,6 +1,6 @@
 package Controller;
 
-import entity.dept;
+import workbench.entity.dept;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 

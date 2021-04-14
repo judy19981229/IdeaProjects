@@ -34,13 +34,15 @@
     <mvc:resources mapping="/static/**" location="/static/"/>
 
     <!--声明拦截器-->
-    <!--<mvc:interceptors>
+    <mvc:interceptors>
         <mvc:interceptor>
-            &lt;!&ndash;指定拦截请求的uri地址，可以使用通配符**（任意）&ndash;&gt;
-            <mvc:mapping path="/settings/**"/>
-            <mvc:mapping path="/workbench/**"/>
+            <!--指定拦截请求的uri地址，可以使用通配符**（任意）-->
+            <mvc:mapping path="/**"/>
+            <!--指定不拦截的请求地址-->
+            <mvc:exclude-mapping path="/settings/user/login"/>
+            <mvc:exclude-mapping path="/login.jsp"/>
             <bean class="handler.MyInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>-->
+    </mvc:interceptors>
 
 </beans>

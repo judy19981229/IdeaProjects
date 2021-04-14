@@ -9,10 +9,12 @@
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
 
-    <!--处理html文件-->
+    <!--配置Servlet默认的静态资源处理器-->
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.html</url-pattern>
+        <url-pattern>/jquery/**</url-pattern>
+        <url-pattern>/image/**</url-pattern>
     </servlet-mapping>
 
     <!--声明，注册springmvc的核心对象DispatcherServlet

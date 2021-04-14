@@ -1,5 +1,6 @@
 package settings.controller;
 
+import exception.LoginException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +23,7 @@ public class UserController {
     @RequestMapping(value = "/settings/user/login",method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> login(String loginAct, String loginPwd,
-                                    HttpServletRequest request){
+                                    HttpServletRequest request) throws LoginException {
         Map<String,Object> map=new HashMap<String,Object>();
         String ip=request.getLocalAddr();
         User us=new User();
@@ -30,17 +31,10 @@ public class UserController {
         us.setLoginAct(loginAct);
         us.setLoginPwd(MD5Util.getMD5(loginPwd));
         //获得查询出的user对象
-        try{
-            User user=userService.login(us);
-            request.getSession().setAttribute("user",user);
-            map.put("success",true);
-            //程序正常走到这里说明没有抛出异常
-        } catch (Exception e){
-            e.printStackTrace();
-            String message=e.getMessage();
-            map.put("success",false);
-            map.put("message",message);
-        }
+        User user=userService.login(us);
+        request.getSession().setAttribute("user",user);
+        map.put("success",true);
+        //程序正常走到这里说明没有抛出异常
         return map;
     }
 

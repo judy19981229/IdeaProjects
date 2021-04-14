@@ -35,19 +35,13 @@
     <mvc:resources mapping="/image/**" location="/image/"/>
     <mvc:resources mapping="/jquery/**" location="/jquery/"/>
 
-    <!--声明多个拦截器(ArrayList)，先声明的先执行，后声明的后执行-->
+    <!--声明拦截器-->
     <!--<mvc:interceptors>
-        &lt;!&ndash;声明第一个拦截器&ndash;&gt;
         <mvc:interceptor>
             &lt;!&ndash;指定拦截请求的uri地址，可以使用通配符**（任意）&ndash;&gt;
-            <mvc:mapping path="/**"/>
-            <bean class="workbench.settings.handler.MyInterceptor"/>
-        </mvc:interceptor>
-        &lt;!&ndash;声明第二个拦截器&ndash;&gt;
-        <mvc:interceptor>
-            &lt;!&ndash;指定拦截请求的uri地址，可以使用通配符**（任意）&ndash;&gt;
-            <mvc:mapping path="/**"/>
-            <bean class="workbench.settings.handler.MyInterceptor2"/>
+            <mvc:mapping path="/settings/**"/>
+            <mvc:mapping path="/workbench/**"/>
+            <bean class="handler.MyInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>-->
 

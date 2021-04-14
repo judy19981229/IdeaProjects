@@ -48,7 +48,6 @@
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="myDataSource"/>
     </bean>
-
     <!--开启事物注解驱动，告诉spring使用注解管理事物，创建代理对象-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 

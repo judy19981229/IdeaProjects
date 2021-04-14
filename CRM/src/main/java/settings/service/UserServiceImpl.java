@@ -34,9 +34,6 @@ public class UserServiceImpl implements UserService{
             //判断ip地址
             String userIp=us.getAllowIps() ;
             String allowIps=user.getAllowIps();
-            System.out.println(userIp);
-            System.out.println("-----");
-            System.out.println(allowIps);
             if(!allowIps.contains(userIp)){
                 throw new LoginException("ip地址不允许访问");
             }

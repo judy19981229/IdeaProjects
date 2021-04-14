@@ -6,12 +6,15 @@
          version="5.0">
     <!--配置登录的默认页面-->
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
-    <!--处理html文件-->
+
+    <!--配置Servlet默认的静态资源处理器-->
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.html</url-pattern>
+        <url-pattern>/jquery/**</url-pattern>
+        <url-pattern>/image/**</url-pattern>
     </servlet-mapping>
 
     <!--声明，注册springmvc的核心对象DispatcherServlet
@@ -88,6 +91,6 @@
     <filter-mapping>
         <filter-name>characterEncodingFilter</filter-name>
         <!--/*表示强制所有的请求先通过过滤器处理-->
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/* </url-pattern>
     </filter-mapping>
 </web-app>

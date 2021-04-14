@@ -39,7 +39,7 @@
 			function rollback(param){
 				//param{"success":true/false,"message":"错误信息"}
 				if(param.success){
-					window.location.href="workbench/index.html";
+					window.location.href="workbench/index.jsp";
 				} else{
 					$("#message").text(param.message);
 				}
@@ -49,7 +49,7 @@
 </head>
 <body>
 	<div style="position: absolute; top: 0px; left: 0px; width: 60%;height: 90%">
-		<img src="image/IMG_7114.JPG" style="width: 100%; height: 90%; position: relative; top: 50px;">
+		<img src="image/IMG_7114.JPG" style="width: 100%; position: relative; top: 50px;">
 	</div>
 	<div id="top" style="height: 50px; background-color: #3C3C3C; width: 100%;">
 		<div style="position: absolute; top: 5px; left: 0px; font-size: 30px; font-weight: 400; color: white; font-family: 'times new roman'">CRM &nbsp;<span style="font-size: 12px;">&copy;2021&nbsp;华中科技大学</span></div>
@@ -60,7 +60,7 @@
 			<div class="page-header">
 				<h1>登录</h1>
 			</div>
-			<form action="workbench/index.html" class="form-horizontal" role="form">
+			<form action="workbench/index.jsp" class="form-horizontal" role="form">
 				<div class="form-group form-group-lg">
 					<div style="width: 350px;">
 						<input class="form-control" type="text" placeholder="用户名" id="loginAct">

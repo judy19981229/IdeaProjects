@@ -4,6 +4,16 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
          https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
+    <!--配置登录的默认页面-->
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    <!--处理html文件-->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+
     <!--声明，注册springmvc的核心对象DispatcherServlet
     需要在Tomcat服务器启动后，创建DispatcherServlet对象的实例
     因为DispatcherServlet在他的创建过程中，会同时创建springmvc容器对象
@@ -52,7 +62,7 @@
         2.使用斜杠"/",当你的项目中使用了/，会替代tomcat中的default，不可以处理静态资源
         没有控制器对象能处理静态资源的访问，所以静态资源都是404，但是动态资源是可以访问的
         -->
-        <url-pattern>*.do</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
     <!--注册声明过滤器，解决post请求乱码的问题-->

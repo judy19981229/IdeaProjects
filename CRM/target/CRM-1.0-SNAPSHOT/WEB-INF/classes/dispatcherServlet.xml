@@ -11,7 +11,8 @@
        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!--扫描注解-->
-    <context:component-scan base-package="settings.controller,workbench.controller"/>
+    <context:component-scan base-package="settings.controller"/>
+    <context:component-scan base-package="workbench.controller"/>
     <context:component-scan base-package="handler"/>
 
     <!--配置视图解析器，设置视图文件的路径

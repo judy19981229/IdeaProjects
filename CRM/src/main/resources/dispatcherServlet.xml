@@ -32,8 +32,6 @@
     mapping：访问静态资源的uri地址，使用通配符**(表示下面的多级目录）
     location：静态资源在项目中的位置-->
     <mvc:resources mapping="/static/**" location="/static/"/>
-    <mvc:resources mapping="/image/**" location="/image/"/>
-    <mvc:resources mapping="/jquery/**" location="/jquery/"/>
 
     <!--声明拦截器-->
     <!--<mvc:interceptors>

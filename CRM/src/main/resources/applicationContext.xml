@@ -78,8 +78,6 @@
     </aop:config>-->
 
     <!--扫描包中的注解-->
-    <context:component-scan base-package="settings.entity"/>
-    <context:component-scan base-package="workbench.entity"/>
     <context:component-scan base-package="settings.service"/>
     <context:component-scan base-package="workbench.service"/>
 

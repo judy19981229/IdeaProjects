@@ -7,11 +7,12 @@ import settings.entity.User;
 import utils.DateTimeUtil;
 
 import javax.annotation.Resource;
+import java.util.List;
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService{
 
-    @Resource
+    @Resource(name="userDao")
     UserDao userDao;
 
     @Override
@@ -39,5 +40,10 @@ public class UserServiceImpl implements UserService{
             }
         }
         return user;
+    }
+
+    @Override
+    public List<User> getUserList() {
+        return userDao.getUserList();
     }
 }

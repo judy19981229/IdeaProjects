@@ -20,8 +20,17 @@ request.getContextPath() + "/";
 <script type="text/javascript">
 
 	$(function(){
-		
-		
+		$("#addBtn").click(function(){
+			$.get("workbench/activity/getUserList",rollback,"json");
+			function rollback(param){
+				$.each(param,function(index,dmoObj){
+					var html="<option value="+dmoObj.id+">"+dmoObj.name+"</option>"
+					$("#create-marketActivityOwner").append(html);
+				});
+			}
+			//点击创建按钮，打开创建市场活动的模态窗口
+			$("#createActivityModal").modal("show");
+		});
 		
 	});
 	
@@ -47,9 +56,7 @@ request.getContextPath() + "/";
 							<label for="create-marketActivityOwner" class="col-sm-2 control-label">所有者<span style="font-size: 15px; color: red;">*</span></label>
 							<div class="col-sm-10" style="width: 300px;">
 								<select class="form-control" id="create-marketActivityOwner">
-								  <option>zhangsan</option>
-								  <option>lisi</option>
-								  <option>wangwu</option>
+									<option></option>
 								</select>
 							</div>
                             <label for="create-marketActivityName" class="col-sm-2 control-label">名称<span style="font-size: 15px; color: red;">*</span></label>
@@ -208,8 +215,16 @@ request.getContextPath() + "/";
 			</div>
 			<div class="btn-toolbar" role="toolbar" style="background-color: #F7F7F7; height: 50px; position: relative;top: 5px;">
 				<div class="btn-group" style="position: relative; top: 18%;">
-				  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createActivityModal"><span class="glyphicon glyphicon-plus"></span> 创建</button>
-				  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editActivityModal"><span class="glyphicon glyphicon-pencil"></span> 修改</button>
+					<!--点击创建按钮，观察两个属性和属性值
+					data-toggle="modal"表示触发该按钮，将要打开一个模态窗口
+					data-target="#createActivityModal"表示要打开哪个模态窗口，通过#id的形式找到该窗口
+					现在我们是以属性和属性值的方式写在了button元素中，用来打开模态窗口，但是这样做是有问题的
+					问题在于没有办法对按钮的功能进行扩充
+					所以未来的实际项目开发，对于模态窗口的操作，一定不要写死在元素当中，应该由我们自己写js代码操控，
+					把data-toggle和data-target删掉，加一个id
+					-->
+				  <button type="button" class="btn btn-primary" id="addBtn"><span class="glyphicon glyphicon-plus"></span> 创建</button>
+				  <button type="button" class="btn btn-default" id="editBtn"><span class="glyphicon glyphicon-pencil"></span> 修改</button>
 				  <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span> 删除</button>
 				</div>
 				

@@ -17,7 +17,7 @@ import java.util.Map;
 @Controller
 public class UserController {
 
-    @Resource
+    @Resource(name="userService")
     UserService userService;
 
     @RequestMapping(value = "/settings/user/login",method = RequestMethod.POST)

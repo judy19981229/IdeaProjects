@@ -6,4 +6,8 @@
     <select id="login" resultType="settings.entity.User">
         select * from tbl_user where loginAct=#{loginAct} and loginPwd=#{loginPwd}
     </select>
+
+    <select id="getUserList" resultType="settings.entity.User">
+        select * from tbl_user
+    </select>
 </mapper>

@@ -11,11 +11,9 @@
 	<script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
-
 			if(window.top!=window){
 				window.top.location=window.location;
 			}
-
 			var loginAct=$("#loginAct");
 			var loginPwd=$("#loginPwd");
 			//清空用户名和密码,并让用户名处获得焦点

@@ -1,14 +1,14 @@
 package workbench.entity;
 
 public class ActivityRemark {
-    private String id;
-    private String noteContent;
-    private String createTime;
-    private String createBy;
-    private String editTime;
-    private String editBy;
-    private String editFlag;
-    private String activityId;
+    private String id; //主键
+    private String noteContent; //备注信息
+    private String createTime; //创建时间
+    private String createBy; //创建人
+    private String editTime; //修改时间
+    private String editBy; //修改人
+    private String editFlag; //是否修改过的标记 1位 0/1
+    private String activityId; //活动id 外键 连接tbl_activity
 
     public String getId() {
         return id;

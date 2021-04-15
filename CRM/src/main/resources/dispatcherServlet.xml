@@ -32,15 +32,17 @@
     mapping：访问静态资源的uri地址，使用通配符**(表示下面的多级目录）
     location：静态资源在项目中的位置-->
     <mvc:resources mapping="/static/**" location="/static/"/>
+    <mvc:resources mapping="/jquery/**" location="/jquery/"/>
+    <mvc:resources mapping="/image/**" location="/image/"/>
 
-    <!--声明拦截器-->
+    <!--声明拦截器,拦截后台请求-->
     <mvc:interceptors>
         <mvc:interceptor>
             <!--指定拦截请求的uri地址，可以使用通配符**（任意）-->
-            <mvc:mapping path="/**"/>
+            <mvc:mapping path="/settings/**"/>
+            <mvc:mapping path="/workbench/**"/>
             <!--指定不拦截的请求地址-->
             <mvc:exclude-mapping path="/settings/user/login"/>
-            <mvc:exclude-mapping path="/login.jsp"/>
             <bean class="handler.MyInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

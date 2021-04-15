@@ -13,18 +13,16 @@
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.html</url-pattern>
-        <url-pattern>/jquery/**</url-pattern>
-        <url-pattern>/image/**</url-pattern>
     </servlet-mapping>
 
-    <!--声明过滤器，必须登录之后才能访问后面的页面-->
+    <!--声明过滤器，拦截前台页面，必须登录之后才能访问后面的页面-->
     <filter>
         <filter-name>LoginFilter</filter-name>
         <filter-class>handler.LoginFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
 
     <!--声明，注册springmvc的核心对象DispatcherServlet

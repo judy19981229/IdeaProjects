@@ -12,18 +12,20 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest servletRequest,
                          ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
+        //向下转型
         HttpServletRequest request= (HttpServletRequest) servletRequest;
         HttpServletResponse response=(HttpServletResponse) servletResponse;
         //获取的是http://127.0.0.1:8080/CRM/之后的路径
         String path=request.getServletPath();
-        //登陆页面和登录操作不拦截
-        if("/login.jsp".equals(path) || "/settings/user/login".equals(path)){
+        //登陆页面不拦截
+        if("/login.jsp".equals(path)){
             filterChain.doFilter(request,response);
         } else{
             User user= (User) request.getSession().getAttribute("user");
             if(user!=null){
                 filterChain.doFilter(request,response);
             } else{
+                //请求转发最好不要写死/CRM/login.jsp，方便以后更改
                 response.sendRedirect(request.getContextPath()+"/login.jsp");
             }
         }

@@ -1,5 +1,7 @@
 package workbench.dao;
 
-public interface ActivityDao {
+import workbench.entity.Activity;
 
+public interface ActivityDao {
+    int saveActivity(Activity activity);
 }

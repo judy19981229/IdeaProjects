@@ -20,18 +20,76 @@ request.getContextPath() + "/";
 <script type="text/javascript">
 
 	$(function(){
+
+		//日期时间选择器
+		$(".time").datetimepicker({
+			minView: "month",
+			language:  'zh-CN',
+			format: 'yyyy-mm-dd',
+			autoclose: true,
+			todayBtn: true,
+			pickerPosition: "bottom-left"
+		});
+
+		//创建市场活动
 		$("#addBtn").click(function(){
 			$.get("workbench/activity/getUserList",rollback,"json");
 			function rollback(param){
 				$.each(param,function(index,dmoObj){
 					var html="<option value="+dmoObj.id+">"+dmoObj.name+"</option>"
-					$("#create-marketActivityOwner").append(html);
+					$("#create-owner").append(html);
+					//将当前登陆的用户，设置为下拉框的默认选项
+					/**
+					 * <select id="create-marketActivityOwner">
+					 * 		<option value="06f5fc056eac41558a964f96daa7f27c">张三</option>
+					 * 		<option value="40f6cdea0bd34aceb77492a1656d9fb3">李四</option>
+					 * </select>
+					 */
+					$("#create-owner").val("${user.id}");
+					//点击创建按钮，打开创建市场活动的模态窗口
+					$("#createActivityModal").modal("show");
 				});
 			}
-			//点击创建按钮，打开创建市场活动的模态窗口
-			$("#createActivityModal").modal("show");
 		});
-		
+
+		//保存创建的市场活动
+		$("#saveBtn").click(function(){
+			$.post("workbench/activity/save",
+					//传递的参数需要去掉前后空格
+					{
+						"owner":$.trim($("#create-owner").val()),
+						"name":$.trim($("#create-name").val()),
+						"startDate":$.trim($("#create-startDate").val()),
+						"endDate":$.trim($("#create-endDate").val()),
+						"cost":$.trim($("#create-cost").val()),
+						"description":$.trim($("#create-description").val()),
+					},
+					function(param){
+						if(param.success){
+							//添加成功后，刷新市场活动信息列表（局部刷新）
+
+							//清空添加操作模态窗口中的数据,不然下次点开还是这次输入的内容
+							$("#createActivityForm")[0].reset();
+							//关闭添加操作的模态窗口-modal方法 show打开 hide关闭
+							$("#createActivityModal").modal("hide");
+						} else{
+							alert(param.message);
+						}
+					},
+					"json");
+		});
+
+		//页面加载完毕后触发一个方法，进行分页操作，基础组件就是pageNo和pageSize
+		//pageNo：当前页的页码，pageSize：每页展现的记录数 这两个不可或缺
+		//pageList方法：发出ajax请求到后台，从后台获取最新的市场活动信息列表数据
+		//通过响应回来的数据，局部刷新市场活动信息列表
+		//需要刷新的情况：一共六种情况 workbench/activity/pageList
+		//点击左侧菜单的市场活动超链接(页面加载)、添加、修改、删除、查询操作后，点击下面的分页组件
+
+		pageList(1,2);
+		function  pageList(pageNo,pageSize){
+
+		}
 	});
 	
 </script>
@@ -50,29 +108,29 @@ request.getContextPath() + "/";
 				</div>
 				<div class="modal-body">
 				
-					<form class="form-horizontal" role="form">
+					<form class="form-horizontal" role="form" id="createActivityForm">
 					
 						<div class="form-group">
-							<label for="create-marketActivityOwner" class="col-sm-2 control-label">所有者<span style="font-size: 15px; color: red;">*</span></label>
+							<label for="create-owner" class="col-sm-2 control-label">所有者<span style="font-size: 15px; color: red;">*</span></label>
 							<div class="col-sm-10" style="width: 300px;">
-								<select class="form-control" id="create-marketActivityOwner">
+								<select class="form-control" id="create-owner">
 									<option></option>
 								</select>
 							</div>
-                            <label for="create-marketActivityName" class="col-sm-2 control-label">名称<span style="font-size: 15px; color: red;">*</span></label>
+                            <label for="create-name" class="col-sm-2 control-label">名称<span style="font-size: 15px; color: red;">*</span></label>
                             <div class="col-sm-10" style="width: 300px;">
-                                <input type="text" class="form-control" id="create-marketActivityName">
+                                <input type="text" class="form-control" id="create-name">
                             </div>
 						</div>
 						
 						<div class="form-group">
-							<label for="create-startTime" class="col-sm-2 control-label">开始日期</label>
+							<label for="create-startDate" class="col-sm-2 control-label">开始日期</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="create-startTime">
+								<input type="text" class="form-control time" id="create-startDate">
 							</div>
-							<label for="create-endTime" class="col-sm-2 control-label">结束日期</label>
+							<label for="create-endDate" class="col-sm-2 control-label">结束日期</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="create-endTime">
+								<input type="text" class="form-control time" id="create-endDate">
 							</div>
 						</div>
                         <div class="form-group">
@@ -83,9 +141,9 @@ request.getContextPath() + "/";
                             </div>
                         </div>
 						<div class="form-group">
-							<label for="create-describe" class="col-sm-2 control-label">描述</label>
+							<label for="create-description" class="col-sm-2 control-label">描述</label>
 							<div class="col-sm-10" style="width: 81%;">
-								<textarea class="form-control" rows="3" id="create-describe"></textarea>
+								<textarea class="form-control" rows="3" id="create-description"></textarea>
 							</div>
 						</div>
 						
@@ -93,8 +151,9 @@ request.getContextPath() + "/";
 					
 				</div>
 				<div class="modal-footer">
+					<!--data-dismiss="modal"：关闭模态窗口-->
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal">保存</button>
+					<button type="button" class="btn btn-primary" id="saveBtn">保存</button>
 				</div>
 			</div>
 		</div>
@@ -132,11 +191,11 @@ request.getContextPath() + "/";
 						<div class="form-group">
 							<label for="edit-startTime" class="col-sm-2 control-label">开始日期</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="edit-startTime" value="2020-10-10">
+								<input type="text" class="form-control time" id="edit-startTime" value="2020-10-10">
 							</div>
 							<label for="edit-endTime" class="col-sm-2 control-label">结束日期</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="edit-endTime" value="2020-10-20">
+								<input type="text" class="form-control time" id="edit-endTime" value="2020-10-20">
 							</div>
 						</div>
 						
@@ -184,14 +243,14 @@ request.getContextPath() + "/";
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">名称</div>
-				      <input class="form-control" type="text">
+				      <input class="form-control" type="text" id="search-name">
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">所有者</div>
-				      <input class="form-control" type="text">
+				      <input class="form-control" type="text" id="search-owner">
 				    </div>
 				  </div>
 
@@ -199,17 +258,17 @@ request.getContextPath() + "/";
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">开始日期</div>
-					  <input class="form-control" type="text" id="startTime" />
+					  <input class="form-control" type="text" id="search-startDate" />
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">结束日期</div>
-					  <input class="form-control" type="text" id="endTime">
+					  <input class="form-control" type="text" id="search-endDate">
 				    </div>
 				  </div>
 				  
-				  <button type="submit" class="btn btn-default">查询</button>
+				  <button type="button" id="searchBtn" class="btn btn-default">查询</button>
 				  
 				</form>
 			</div>

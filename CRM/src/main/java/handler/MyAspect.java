@@ -1,8 +1,7 @@
-package settings.service;
+package handler;
 
 import org.aspectj.lang.annotation.Aspect;
 
 @Aspect
 public class MyAspect {
-
 }

@@ -28,7 +28,7 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="workbench.settings.dao/studentsDao.xml"/>
+        <mapper resource="workbench.dao.studentsDao.xml"/>
         <!--
         如果有多个xml文件，可以使用包名,这个包中所有xml文件一次性都能夹在给myBatis
         使用package的要求：

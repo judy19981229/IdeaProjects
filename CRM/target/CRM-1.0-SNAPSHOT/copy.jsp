@@ -1,4 +1,6 @@
-<%--
+<%@ page import="utils.UUIDUtil" %>
+<%@ page import="utils.DateTimeUtil" %>
+<%@ page import="settings.entity.User" %><%--
   Created by IntelliJ IDEA.
   User: judy
   Date: 2021/4/13
@@ -10,6 +12,12 @@
     String basePath = request.getScheme() + "://" +
             request.getServerName() + ":" + request.getServerPort() +
             request.getContextPath() + "/";
+%>
+<%
+    String id= UUIDUtil.getUUID();//使用UUID工具类
+    String createTime= DateTimeUtil.getSysTime();//使用DateTime工具类
+    User user= (User) request.getSession().getAttribute("user");
+    String createBy=user.getName();//从session中的user对象获取
 %>
 <html>
     <head>

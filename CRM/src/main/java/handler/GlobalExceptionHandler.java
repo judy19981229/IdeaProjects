@@ -1,7 +1,7 @@
 package handler;
 
+import exception.ActivityException;
 import exception.LoginException;
-import exception.SaveActivityException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,7 +12,7 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({LoginException.class,SaveActivityException.class})
+    @ExceptionHandler({LoginException.class, ActivityException.class})
     @ResponseBody
     public Map<String,Object> LoginException(Exception exception){
         Map<String,Object> map=new HashMap<>();

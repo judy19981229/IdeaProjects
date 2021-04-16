@@ -55,8 +55,7 @@ request.getContextPath() + "/";
 		//保存创建的市场活动
 		$("#saveBtn").click(function(){
 			$.post("workbench/activity/save",
-					//传递的参数需要去掉前后空格
-					{
+					{	//传递的参数需要去掉前后空格
 						"owner":$.trim($("#create-owner").val()),
 						"name":$.trim($("#create-name").val()),
 						"startDate":$.trim($("#create-startDate").val()),
@@ -67,7 +66,7 @@ request.getContextPath() + "/";
 					function(param){
 						if(param.success){
 							//添加成功后，刷新市场活动信息列表（局部刷新）
-
+							pageList(1,2);
 							//清空添加操作模态窗口中的数据,不然下次点开还是这次输入的内容
 							$("#createActivityForm")[0].reset();
 							//关闭添加操作的模态窗口-modal方法 show打开 hide关闭
@@ -75,23 +74,52 @@ request.getContextPath() + "/";
 						} else{
 							alert(param.message);
 						}
-					},
-					"json");
+					}, "json");
 		});
 
 		//页面加载完毕后触发一个方法，进行分页操作，基础组件就是pageNo和pageSize
+		pageList(1,2);
+		//为查询按钮绑定事件，触发pageList
+		$("#searchBtn").click(function(){
+			pageList(1,2);
+		});
+
 		//pageNo：当前页的页码，pageSize：每页展现的记录数 这两个不可或缺
 		//pageList方法：发出ajax请求到后台，从后台获取最新的市场活动信息列表数据
 		//通过响应回来的数据，局部刷新市场活动信息列表
 		//需要刷新的情况：一共六种情况 workbench/activity/pageList
 		//点击左侧菜单的市场活动超链接(页面加载)、添加、修改、删除、查询操作后，点击下面的分页组件
-
-		pageList(1,2);
-		function  pageList(pageNo,pageSize){
-
+		function pageList(pageNo,pageSize){
+			$.get("workbench/activity/pageList",
+					{
+						"pageNo":pageNo,
+						"pageSize":pageSize,
+						"name":$.trim($("#search-name").val()),
+						"owner":$.trim($("#search-owner").val()),
+						"startDate":$.trim($("#search-startDate").val()),
+						"endDate":$.trim($("#search-endDate").val())
+					},
+					rollback, "json");
+			//接收的参数为一个市场活动集合和查询结果的总条数
+			// {"activityList":activityList,"total":total}
+			function rollback(param){
+				//需要对市场活动集合进行遍历，把遍历结果填充到table中
+				var html="";
+				$.each(param.dataList,function(index,dmoObj){
+					html+='<tr class="active">';
+					html+='<td><input type="checkbox" /></td>';
+					html+='<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href=\'workbench/activity/detail.jsp\';">'+dmoObj.name+'</a></td>';
+					html+='<td>'+dmoObj.owner+'</td>';
+					html+='<td>'+dmoObj.startDate+'</td>';
+					html+='<td>'+dmoObj.endDate+'</td>';
+					html+='</tr>';
+				});
+				$("#activityBody").html(html);
+			}
 		}
 	});
-	
+
+
 </script>
 </head>
 <body>
@@ -254,17 +282,16 @@ request.getContextPath() + "/";
 				    </div>
 				  </div>
 
-
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">开始日期</div>
-					  <input class="form-control" type="text" id="search-startDate" />
+					  <input class="form-control time" type="text" id="search-startDate" />
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">结束日期</div>
-					  <input class="form-control" type="text" id="search-endDate">
+					  <input class="form-control time" type="text" id="search-endDate">
 				    </div>
 				  </div>
 				  
@@ -299,8 +326,8 @@ request.getContextPath() + "/";
 							<td>结束日期</td>
 						</tr>
 					</thead>
-					<tbody>
-						<tr class="active">
+					<tbody id="activityBody">
+		<%--				<tr class="active">
 							<td><input type="checkbox" /></td>
 							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='workbench/activity/detail.jsp';">发传单</a></td>
                             <td>zhangsan</td>
@@ -313,7 +340,7 @@ request.getContextPath() + "/";
                             <td>zhangsan</td>
                             <td>2020-10-10</td>
                             <td>2020-10-20</td>
-                        </tr>
+                        </tr>--%>
 					</tbody>
 				</table>
 			</div>

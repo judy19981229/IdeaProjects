@@ -15,9 +15,15 @@
         <package name="workbench.entity"/>
     </typeAliases>
 
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
+
     <mappers>
         <!--name是包名，可以加载包中的所有xml文件-->
         <package name="settings.dao"/>
         <package name="workbench.dao"/>
     </mappers>
+
+    
 </configuration>

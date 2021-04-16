@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+//过滤器
 public class LoginFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest,

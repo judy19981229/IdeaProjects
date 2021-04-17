@@ -53,6 +53,7 @@ public class ActivityController {
         map.put("success",result);
         return map;
     }
+
     @RequestMapping("/workbench/activity/pageList")
     @ResponseBody
     public PageVo<Activity> pageList(String name,String owner,String startDate,

@@ -5,6 +5,7 @@ import exception.ActivityException;
 import org.springframework.stereotype.Service;
 import vo.PageVo;
 import workbench.dao.ActivityDao;
+import workbench.dao.ActivityRemarkDao;
 import workbench.entity.Activity;
 
 import javax.annotation.Resource;
@@ -16,6 +17,9 @@ public class ActivityServiceImpl implements ActivityService{
 
     @Resource(name="activityDao")
     ActivityDao activityDao;
+
+    @Resource(name="activityRemarkDao")
+    ActivityRemarkDao activityRemarkDao;
 
     @Override
     public boolean saveActivity(Activity activity) throws ActivityException {
@@ -40,5 +44,40 @@ public class ActivityServiceImpl implements ActivityService{
         return pageVo;
     }
 
+    @Override
+    public boolean delete(String[] ids) {
+        boolean flag=true;
 
+        //查询出需要删除的备注的条数
+        int needDeleteNum=activityRemarkDao.getCountByIds(ids);
+        //查询出实际删除的备注的条数
+        int deleteNum =activityRemarkDao.deleteByIds(ids);
+        if(needDeleteNum==deleteNum){
+            activityDao.deleteByIds(ids);
+        } else{
+            flag=false;
+        }
+        return flag;
+    }
+
+    @Override
+    public Activity getActivity(String id) {
+        Activity activity=activityDao.getActivity(id);
+        return activity;
+    }
+
+    @Override
+    public boolean updateActivity(Activity activity) {
+        int result=activityDao.updateActivity(activity);
+        if(result==1){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Activity detail(String id) {
+        Activity activity=activityDao.detail(id);
+        return activity;
+    }
 }

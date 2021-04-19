@@ -39,7 +39,6 @@ request.getContextPath() + "/";
 				var html="<option></option>"
 				$.each(param,function(index,dmoObj){
 					html+="<option value="+dmoObj.id+">"+dmoObj.name+"</option>"
-					$("#create-owner").html(html);
 				});
 				//将当前登陆的用户，设置为下拉框的默认选项
 				/**
@@ -48,6 +47,7 @@ request.getContextPath() + "/";
 				 * 		<option value="40f6cdea0bd34aceb77492a1656d9fb3">李四</option>
 				 * </select>
 				 */
+				$("#create-owner").html(html);
 				$("#create-owner").val("${user.id}");
 				$("#createActivityModal").modal("show");
 			}
@@ -67,7 +67,8 @@ request.getContextPath() + "/";
 					function(param){
 						if(param.success){
 							//添加成功后，刷新市场活动信息列表（局部刷新）
-							pageList(1,2);
+							pageList(1,
+									$("#activityPage").bs_pagination('getOption', 'rowsPerPage'));
 							//清空添加操作模态窗口中的数据,不然下次点开还是这次输入的内容
 							$("#createActivityForm")[0].reset();
 							//关闭添加操作的模态窗口-modal方法 show打开 hide关闭
@@ -87,7 +88,8 @@ request.getContextPath() + "/";
 			$("#hidden-owner").val($.trim($("#search-owner").val()));
 			$("#hidden-startDate").val($.trim($("#search-startDate").val()));
 			$("#hidden-endDate").val($.trim($("#search-endDate").val()));
-			pageList(1,2);
+			pageList(1,
+					$("#activityPage").bs_pagination('getOption', 'rowsPerPage'));
 		});
 
 		//pageNo：当前页的页码，pageSize：每页展现的记录数 这两个不可或缺
@@ -120,8 +122,8 @@ request.getContextPath() + "/";
 				var html="";
 				$.each(param.dataList,function(index,dmoObj){
 					html+='<tr class="active">';
-					html+='<td><input type="checkbox" name="select" /></td>';
-					html+='<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href=\'workbench/activity/detail.jsp\';">'+dmoObj.name+'</a></td>';
+					html+='<td><input type="checkbox" name="select" value="'+dmoObj.id+'" /></td>';
+					html+='<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href=\'workbench/activity/detail?id='+dmoObj.id+'\';">'+dmoObj.name+'</a></td>';
 					html+='<td>'+dmoObj.owner+'</td>';
 					html+='<td>'+dmoObj.startDate+'</td>';
 					html+='<td>'+dmoObj.endDate+'</td>';
@@ -159,17 +161,95 @@ request.getContextPath() + "/";
 		$("#activityBody").on("click",$(":checkbox[name=select]"),
 			function(){
 				var num=$(":checkbox[name=select]:checked").length;
-				var total=$(":checkbox[name=select]").length
+				var total=$(":checkbox[name=select]").length;
 				if(total==num){
 				$("#selectAll").prop("checked",true);
 				} else{
 				$("#selectAll").prop("checked",false);
 				}
 		});
-
+		//全选与全不选
 		$("#selectAll").click(function(){
 			var flag=$("#selectAll").prop("checked");
 			$(":checkbox[name=select]").prop("checked",flag);
+		});
+
+		//删除市场活动操作
+		$("#deleteBtn").click(function(){
+			var $check=$(":checkbox[name=select]:checked");
+			if($check.length==0){
+				alert("请选择需要删除的市场活动");
+			} else{
+				if(confirm("确定要删除吗")){
+					var data="";
+					for(var i=0;i<$check.length;i++){
+						data+="id="+$($check[i]).val();
+						if(i=$check.length-1){
+							data+="&id="+$($check[i]).val();
+						}//传递给后端的是参数为 id=xx1&id=xx2
+					}//从后端接收的参数为{"success",true/false}
+					$.get("workbench/activity/delete",data,rollback,"json");
+					function rollback(param){
+						if(param.success){
+							pageList(1,
+									$("#activityPage").bs_pagination('getOption', 'rowsPerPage'));
+							//删除成功，刷新页面（展示删除后的新页面）
+						} else{alert("删除失败，请重试")}
+					}
+				}
+			}
+		});
+		//修改市场活动操作
+		$("#editBtn").click(function(){
+			//首先判断是否选中市场活动，选中了才跳转到修改的模态窗口
+			var checkNum=$(":checkbox[name=select]:checked").length;
+			if(checkNum==1){
+				$.get("workbench/activity/getUserList",rollback1,"json");
+				function rollback1(param){
+					var html="<option></option>"
+					$.each(param,function(index,dmoObj){
+						html+="<option value="+dmoObj.id+">"+dmoObj.name+"</option>"
+					});
+					//将当前登陆的用户，设置为下拉框的默认选项
+					$("#edit-owner").html(html);
+					$("#edit-owner").val("${user.id}");
+				}
+				$.get("workbench/activity/getActivity",
+						"id="+$(":checkbox[name=select]:checked").val()+"",
+						rollback,"json");
+				function rollback(param){//接收的参数为一个Activity对象
+					$("#edit-id").val(param.id)
+					$("#edit-name").val(param.name);
+					$("#edit-startDate").val(param.startDate);
+					$("#edit-endDate").val(param.endDate);
+					$("#edit-cost").val(param.cost);
+					$("#edit-description").val(param.description);
+				}
+				$("#editActivityModal").modal("show");
+			}else{alert("请选择需要修改的市场活动,一次只能修改一个")}
+
+		});
+		//保存创建的市场活动
+		$("#updateBtn").click(function(){
+			$.post("workbench/activity/update",
+					{	//传递的参数需要去掉前后空格
+						"id":$.trim($("#edit-id").val()),
+						"owner":$.trim($("#edit-owner").val()),
+						"name":$.trim($("#edit-name").val()),
+						"startDate":$.trim($("#edit-startDate").val()),
+						"endDate":$.trim($("#edit-endDate").val()),
+						"cost":$.trim($("#edit-cost").val()),
+						"description":$.trim($("#edit-description").val()),
+					},
+					function(param){
+						if(param.success){
+							//添加成功后，刷新市场活动信息列表（局部刷新）
+							pageList($("#activityPage").bs_pagination('getOption', 'currentPage')
+									,$("#activityPage").bs_pagination('getOption', 'rowsPerPage'));
+							//关闭添加操作的模态窗口-modal方法 show打开 hide关闭
+							$("#editActivityModal").modal("hide");
+						} else{alert("修改失败，请重试");}
+					}, "json");
 		});
 	});
 
@@ -258,44 +338,46 @@ request.getContextPath() + "/";
 				<div class="modal-body">
 				
 					<form class="form-horizontal" role="form">
+
+						<input type="hidden" id="edit-id" />
 					
 						<div class="form-group">
-							<label for="edit-marketActivityOwner" class="col-sm-2 control-label">所有者<span style="font-size: 15px; color: red;">*</span></label>
+							<label for="edit-owner" class="col-sm-2 control-label">所有者<span style="font-size: 15px; color: red;">*</span></label>
 							<div class="col-sm-10" style="width: 300px;">
-								<select class="form-control" id="edit-marketActivityOwner">
-								  <option>zhangsan</option>
-								  <option>lisi</option>
-								  <option>wangwu</option>
+								<select class="form-control"id="edit-owner" >
+
 								</select>
 							</div>
-                            <label for="edit-marketActivityName" class="col-sm-2 control-label">名称<span style="font-size: 15px; color: red;">*</span></label>
+                            <label for="edit-name" class="col-sm-2 control-label">名称<span style="font-size: 15px; color: red;">*</span></label>
                             <div class="col-sm-10" style="width: 300px;">
-                                <input type="text" class="form-control" id="edit-marketActivityName" value="发传单">
+                                <input type="text" class="form-control" id="edit-name" >
                             </div>
 						</div>
 
 						<div class="form-group">
-							<label for="edit-startTime" class="col-sm-2 control-label">开始日期</label>
+							<label for="edit-startDate" class="col-sm-2 control-label">开始日期</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control time" id="edit-startTime" value="2020-10-10">
+								<input type="text" class="form-control time" id="edit-startDate" >
 							</div>
-							<label for="edit-endTime" class="col-sm-2 control-label">结束日期</label>
+							<label for="edit-endDate" class="col-sm-2 control-label">结束日期</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control time" id="edit-endTime" value="2020-10-20">
+								<input type="text" class="form-control time" id="edit-endDate" >
 							</div>
 						</div>
 						
 						<div class="form-group">
 							<label for="edit-cost" class="col-sm-2 control-label">成本</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="edit-cost" value="5,000">
+								<input type="text" class="form-control" id="edit-cost" >
 							</div>
 						</div>
 						
 						<div class="form-group">
-							<label for="edit-describe" class="col-sm-2 control-label">描述</label>
+							<label for="edit-description" class="col-sm-2 control-label">描述</label>
 							<div class="col-sm-10" style="width: 81%;">
-								<textarea class="form-control" rows="3" id="edit-describe">市场活动Marketing，是指品牌主办或参与的展览会议与公关市场活动，包括自行主办的各类研讨会、客户交流会、演示会、新产品发布会、体验会、答谢会、年会和出席参加并布展或演讲的展览会、研讨会、行业交流会、颁奖典礼等</textarea>
+								<!--关于文本域textarea，一定是标签对，没有内容时不要有空格
+								属于表单元素的范畴，使用val()方法进行取值和赋值操作-->
+								<textarea class="form-control" rows="3" id="edit-description"></textarea>
 							</div>
 						</div>
 						
@@ -304,7 +386,7 @@ request.getContextPath() + "/";
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal">更新</button>
+					<button type="button" class="btn btn-primary" id="updateBtn">更新</button>
 				</div>
 			</div>
 		</div>

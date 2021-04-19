@@ -4,7 +4,9 @@ import exception.ActivityException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import settings.entity.User;
 import settings.service.UserService;
 import utils.DateTimeUtil;
@@ -72,6 +74,45 @@ public class ActivityController {
         map.put("pageSize",pageSize);
         pageVo=activityService.pageList(map);
         return pageVo;
+    }
+
+    @RequestMapping("/workbench/activity/delete")
+    @ResponseBody
+    public Map<String,Object> delete(@RequestParam("id") String[] ids){
+        //通过@RequestParam("参数名") String[]数组名 的形式接收从前端传过来的多条数据
+        //这里的id写的是前端传递过来的参数的名称（id=xx1&id=xx2）
+        Map<String,Object> map=new HashMap<>();
+        boolean success=activityService.delete(ids);
+        map.put("success",success);
+        return map;
+    }
+
+    @RequestMapping("/workbench/activity/getActivity")
+    @ResponseBody
+    public Activity getActivity(String id){
+        Activity activity=activityService.getActivity(id);
+        return activity;
+    }
+    @RequestMapping(value="/workbench/activity/update",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> updateActivity(Activity activity,
+                                             HttpServletRequest request) {
+
+        activity.setEditTime(DateTimeUtil.getSysTime());
+        User user= (User) request.getSession().getAttribute("user");
+        activity.setEditBy(user.getName());
+        Map<String,Object> map=new HashMap<>();
+        boolean result=activityService.updateActivity(activity);
+        map.put("success",result);
+        return map;
+    }
+    @RequestMapping(value="/workbench/activity/detail")
+    public ModelAndView detail(String id){
+        Activity activity=activityService.detail(id);
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.addObject("activity",activity);
+        modelAndView.setViewName("forward:/workbench/activity/detail.jsp");
+        return modelAndView;
     }
 
 }

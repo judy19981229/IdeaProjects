@@ -13,7 +13,6 @@
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.html</url-pattern>
-        <url-pattern>clue/**</url-pattern>
     </servlet-mapping>
 
     <!--声明过滤器，拦截前台页面，必须登录之后才能访问后面的页面-->
@@ -25,6 +24,11 @@
         <filter-name>LoginFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
+
+    <!--声明监听器-->
+    <listener>
+        <listener-class>handler.SysInitListener</listener-class>
+    </listener>
 
     <!--声明，注册springmvc的核心对象DispatcherServlet
     需要在Tomcat服务器启动后，创建DispatcherServlet对象的实例

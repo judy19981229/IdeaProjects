@@ -7,6 +7,7 @@ import vo.PageVo;
 import workbench.dao.ActivityDao;
 import workbench.dao.ActivityRemarkDao;
 import workbench.entity.Activity;
+import workbench.entity.ActivityRemark;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -79,5 +80,38 @@ public class ActivityServiceImpl implements ActivityService{
     public Activity detail(String id) {
         Activity activity=activityDao.detail(id);
         return activity;
+    }
+
+    @Override
+    public List<ActivityRemark> getRemarkListById(String activityId) {
+        List<ActivityRemark> list=activityRemarkDao.getRemarkListById(activityId);
+        return list;
+    }
+
+    @Override
+    public boolean saveRemark(ActivityRemark activityRemark) {
+        int result=activityRemarkDao.saveRemark(activityRemark);
+        if(result!=1){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean deleteRemark(String id) {
+        int result=activityRemarkDao.deleteRemark(id);
+        if(result!=1){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean editRemark(ActivityRemark activityRemark) {
+        int result=activityRemarkDao.editRemark(activityRemark);
+        if(result!=1){
+            return false;
+        }
+        return true;
     }
 }

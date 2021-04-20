@@ -13,6 +13,7 @@
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.html</url-pattern>
+        <url-pattern>clue/**</url-pattern>
     </servlet-mapping>
 
     <!--声明过滤器，拦截前台页面，必须登录之后才能访问后面的页面-->

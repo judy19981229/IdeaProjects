@@ -54,29 +54,78 @@ request.getContextPath() + "/";
 
 		//页面加载完毕后，展现该市场活动关联的备注信息列表
 		showRemarkList();
+
+		//给动态生成的备注的删除和编辑按钮绑定鼠标划入划出操作
+		$("#remarkBody").on("mouseover",".remarkDiv",function(){
+			$(this).children("div").children("div").show();
+		});
+		$("#remarkBody").on("mouseout",".remarkDiv",function(){
+			$(this).children("div").children("div").hide();
+		});
+
+		//保存添加的市场活动
+		$("#saveMarkBtn").click(function(){
+			$.get("workbench/activity/saveRemark",
+					{"noteContent":$("#remark").val(),
+					"activityId":"${activity.id}"},
+					rollback,"json");
+			function rollback(param){
+				if(param.success){
+					$("#remark").val("");
+					showRemarkList();
+				} else{alert("添加失败")}
+			}
+		})
+
 	});
 	function showRemarkList(){
 		$.get("workbench/activity/getRemarkListById",
-			"activityId='+${activity.id}+'",
+			"activityId=${activity.id}",
 			showRemark, "json");
 	}
 	function showRemark(param){
 		var html="";
 		$.each(param,function(index,dmoObj){
-			html+='<div class="remarkDiv" style="height: 60px;">';
+			//href="javascript:void(0);"表示禁用超链接,只能以触发事件形式操作
+			html+='<div id="'+dmoObj.id+'" class="remarkDiv" style="height: 60px;">';
 			html+='<img title="zhangsan" src="image/user-thumbnail.png" style="width: 30px; height:30px;">';
 			html+='<div style="position: relative; top: -40px; left: 40px;" >';
 			html+='<h5>'+dmoObj.noteContent+'</h5>';
-			html+='<font color="gray">市场活动</font> <font color="gray">-</font> <b>${activity.name}</b> <small style="color: gray;">'+(dmoObj.editFlag==0?dmoObj.createTime:dmoObj.editTime)+' 由'+(dmoObj.editFlag==0?dmoObj.createBy:dmoObj.editBy)+'</small>';
+			html+='<font color="gray">市场活动</font> <font color="gray">-</font> <b>${activity.name}</b> <small style="color: gray;">'+(dmoObj.editFlag==0?dmoObj.createTime:dmoObj.editTime)+'由'+(dmoObj.editFlag==0?dmoObj.createBy:dmoObj.editBy)+'</small>';
 			html+='<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">';
-			html+='<a class="myHref" href="javascript:void(0);"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: #E6E6E6;"></span></a>';
+			html+='<a class="myHref" href="javascript:void(0);" onclick="editRemark(\''+dmoObj.id+'\',\''+dmoObj.noteContent+'\')"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: #FF0000;"></span></a>';
 			html+='&nbsp;&nbsp;&nbsp;&nbsp;';
-			html+='<a class="myHref" href="javascript:void(0);"><span class="glyphicon glyphicon-remove" style="font-size: 20px; color: #E6E6E6;"></span></a>';
+			html+='<a class="myHref" href="javascript:void(0);" onclick="deleteRemark(\''+dmoObj.id+'\')"><span class="glyphicon glyphicon-remove" style="font-size: 20px; color: #FF0000;"></span></a>';
 			html+='</div>';
 			html+='</div>';
 			html+='</div>';
 		});
-		$("#remarkDiv").before(html);
+		$("#showRemark").html(html);
+	}
+	function deleteRemark(id){
+		if(confirm("确定要删除吗")){
+			$.get("workbench/activity/deleteRemark","id="+id,rollback,"json");
+			function rollback(param){
+				if(param.success){
+					showRemarkList();
+				} else{alert("删除失败，请重试")}
+			}
+		}
+	}
+	function editRemark(id,noteContent){
+		$("#noteContent").val(noteContent);
+		$("#editRemarkModal").modal("show");
+		$("#updateRemarkBtn").click(function(){
+			$.get("workbench/activity/editRemark",
+					{"id":id,"noteContent":$("#noteContent").val()},
+					rollback,"json");
+			function rollback(param){
+				if(param.success){
+					$("#editRemarkModal").modal("hide");
+					showRemarkList();
+				} else{alert("修改失败")}
+			}
+		});
 	}
 </script>
 
@@ -176,11 +225,14 @@ request.getContextPath() + "/";
 	</div>
 	
 	<!-- 备注 -->
-	<div style="position: relative; top: 30px; left: 40px;">
+	<div id="remarkBody" style="position: relative; top: 30px; left: 40px;">
 		<div class="page-header">
 			<h4>备注</h4>
 		</div>
-		
+		<div id="showRemark">
+
+		</div>
+
 		<!-- 备注1 -->
 		<%--<div class="remarkDiv" style="height: 60px;">
 			<img title="zhangsan" src="image/user-thumbnail.png" style="width: 30px; height:30px;">
@@ -214,7 +266,7 @@ request.getContextPath() + "/";
 				<textarea id="remark" class="form-control" style="width: 850px; resize : none;" rows="2"  placeholder="添加备注..."></textarea>
 				<p id="cancelAndSaveBtn" style="position: relative;left: 737px; top: 10px; display: none;">
 					<button id="cancelBtn" type="button" class="btn btn-default">取消</button>
-					<button type="button" class="btn btn-primary">保存</button>
+					<button type="button" class="btn btn-primary" id="saveMarkBtn">保存</button>
 				</p>
 			</form>
 		</div>

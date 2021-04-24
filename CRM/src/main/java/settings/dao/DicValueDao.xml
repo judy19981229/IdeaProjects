@@ -5,6 +5,7 @@
 <mapper namespace="settings.dao.DicValueDao">
     <select id="getDicValue" resultType="DicValue">
         select * from tbl_dic_value where typeCode=#{typeCode}
+        order by orderNo
     </select>
 
 </mapper>

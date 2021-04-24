@@ -1,28 +1,25 @@
 package settings.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import settings.dao.DicTypeDao;
 import settings.dao.DicValueDao;
 import settings.entity.DicType;
 import settings.entity.DicValue;
 
-import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @Service("dicService")
 public class DicServiceImpl implements DicService{
 
-    @Resource(name="dicTypeDao")
-    private DicTypeDao dicTypeDao;
-
-    @Resource(name="dicValueDao")
-    private DicValueDao dicValueDao;
-
     @Override
-    public Map<String, List<DicValue>> getAll() {
+    public Map<String, List<DicValue>> getAll(ServletContext application) {
+        DicTypeDao dicTypeDao = WebApplicationContextUtils.getWebApplicationContext(application).getBean(DicTypeDao.class);
+        DicValueDao dicValueDao = WebApplicationContextUtils.getWebApplicationContext(application).getBean(DicValueDao.class);
+
         Map<String, List<DicValue>> map =new HashMap<>();
         //取出字典类型列表
         List<DicType> list=dicTypeDao.getDicType();

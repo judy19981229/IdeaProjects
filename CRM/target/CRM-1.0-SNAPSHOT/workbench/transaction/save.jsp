@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
 String basePath = request.getScheme() + "://" +
@@ -15,7 +16,79 @@ request.getContextPath() + "/";
 <script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript" src="jquery/bootstrap-datetimepicker-master/locale/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript">
+	$(function(){
+		//日期时间选择器
+		$(".time1").datetimepicker({
+			minView: "month",
+			language:  'zh-CN',
+			format: 'yyyy-mm-dd',
+			autoclose: true,
+			todayBtn: true,
+			pickerPosition: "bottom-left"
+		});
+		$(".time2").datetimepicker({
+			minView: "month",
+			language:  'zh-CN',
+			format: 'yyyy-mm-dd',
+			autoclose: true,
+			todayBtn: true,
+			pickerPosition: "top-left"
+		});
 
+		//查询市场活动源
+		$("#activityName").keydown(function(event){
+			if(event.keyCode==13){
+				//如果是回车键，查询并展现市场活动列表
+				//查询出的是没有关联该线索的市场活动
+				$.get("workbench/transaction/getActivity",
+						{"activityName": $.trim($("#activityName").val())},
+						rollback,"json");
+				function rollback(param){//param是一个市场活动的数组
+					var html="";
+					$.each(param,function(index,dmoObj){
+						html+='<tr>';
+						html+='<td><input type="radio" name="select" value="'+dmoObj.id+'"/></td>';
+						html+='<td>'+dmoObj.name+'</td>';
+						html+='<td>'+dmoObj.startDate+'</td>';
+						html+='<td>'+dmoObj.endDate+'</td>';
+						html+='<td>'+dmoObj.owner+'</td>';
+						html+='</tr>';
+					});
+					$("#activitySearchBody").html(html);
+				}
+				//但是在模态窗口中，只要按回车就会自动刷新并关闭模态窗口,需要禁用该功能
+				return false; //强行终止
+			}
+		});
+		//查找联系人
+		//查询市场活动源
+		$("#contactsName").keydown(function(event){
+			if(event.keyCode==13){
+				//如果是回车键，查询并展现市场活动列表
+				//查询出的是没有关联该线索的市场活动
+				$.get("workbench/transaction/getContacts",
+						{"contactsName": $.trim($("#contactsName").val())},
+						rollback,"json");
+				function rollback(param){//param是一个市场活动的数组
+					var html="";
+					$.each(param,function(index,dmoObj){
+						html+='<tr>';
+						html+='<td><input type="radio" name="select" value="'+dmoObj.id+'"/></td>';
+						html+='<td>'+dmoObj.fullname+'</td>';
+						html+='<td>'+dmoObj.email+'</td>';
+						html+='<td>'+dmoObj.mphone+'</td>';
+						html+='</tr>';
+					});
+					$("#contactsSearchBody").html(html);
+				}
+				//但是在模态窗口中，只要按回车就会自动刷新并关闭模态窗口,需要禁用该功能
+				return false; //强行终止
+			}
+		});
+	});
+
+</script>
 </head>
 <body>
 
@@ -33,7 +106,7 @@ request.getContextPath() + "/";
 					<div class="btn-group" style="position: relative; top: 18%; left: 8px;">
 						<form class="form-inline" role="form">
 						  <div class="form-group has-feedback">
-						    <input type="text" class="form-control" style="width: 300px;" placeholder="请输入市场活动名称，支持模糊查询">
+						    <input type="text" id="activityName" class="form-control" style="width: 300px;" placeholder="请输入市场活动名称，支持模糊查询">
 						    <span class="glyphicon glyphicon-search form-control-feedback"></span>
 						  </div>
 						</form>
@@ -48,8 +121,8 @@ request.getContextPath() + "/";
 								<td>所有者</td>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
+						<tbody id="activitySearchBody">
+							<%--<tr>
 								<td><input type="radio" name="activity"/></td>
 								<td>发传单</td>
 								<td>2020-10-10</td>
@@ -62,9 +135,13 @@ request.getContextPath() + "/";
 								<td>2020-10-10</td>
 								<td>2020-10-20</td>
 								<td>zhangsan</td>
-							</tr>
+							</tr>--%>
 						</tbody>
 					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary" id="activityBtn">关联</button>
 				</div>
 			</div>
 		</div>
@@ -84,7 +161,7 @@ request.getContextPath() + "/";
 					<div class="btn-group" style="position: relative; top: 18%; left: 8px;">
 						<form class="form-inline" role="form">
 						  <div class="form-group has-feedback">
-						    <input type="text" class="form-control" style="width: 300px;" placeholder="请输入联系人名称，支持模糊查询">
+						    <input type="text" id="contactsName" class="form-control" style="width: 300px;" placeholder="请输入联系人名称，支持模糊查询">
 						    <span class="glyphicon glyphicon-search form-control-feedback"></span>
 						  </div>
 						</form>
@@ -98,21 +175,14 @@ request.getContextPath() + "/";
 								<td>手机</td>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td><input type="radio" name="activity"/></td>
-								<td>李四</td>
-								<td>lisi@bjpowernode.com</td>
-								<td>12345678901</td>
-							</tr>
-							<tr>
-								<td><input type="radio" name="activity"/></td>
-								<td>李四</td>
-								<td>lisi@bjpowernode.com</td>
-								<td>12345678901</td>
-							</tr>
+						<tbody id="contactsSearchBody">
+
 						</tbody>
 					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary" id="contactsBtn">关联</button>
 				</div>
 			</div>
 		</div>
@@ -132,9 +202,10 @@ request.getContextPath() + "/";
 			<label for="create-transactionOwner" class="col-sm-2 control-label">所有者<span style="font-size: 15px; color: red;">*</span></label>
 			<div class="col-sm-10" style="width: 300px;">
 				<select class="form-control" id="create-transactionOwner">
-				  <option>zhangsan</option>
-				  <option>lisi</option>
-				  <option>wangwu</option>
+				  <option></option>
+				  <c:forEach items="${userList}" var="u">
+					  <option value="${u.id}" ${user.id eq u.id?"selected":""}>${u.name}</option>
+				  </c:forEach>
 				</select>
 			</div>
 			<label for="create-amountOfMoney" class="col-sm-2 control-label">金额</label>
@@ -150,7 +221,7 @@ request.getContextPath() + "/";
 			</div>
 			<label for="create-expectedClosingDate" class="col-sm-2 control-label">预计成交日期<span style="font-size: 15px; color: red;">*</span></label>
 			<div class="col-sm-10" style="width: 300px;">
-				<input type="text" class="form-control" id="create-expectedClosingDate">
+				<input type="text" class="form-control time1" id="create-expectedClosingDate">
 			</div>
 		</div>
 		
@@ -163,15 +234,9 @@ request.getContextPath() + "/";
 			<div class="col-sm-10" style="width: 300px;">
 			  <select class="form-control" id="create-transactionStage">
 			  	<option></option>
-			  	<option>资质审查</option>
-			  	<option>需求分析</option>
-			  	<option>价值建议</option>
-			  	<option>确定决策者</option>
-			  	<option>提案/报价</option>
-			  	<option>谈判/复审</option>
-			  	<option>成交</option>
-			  	<option>丢失的线索</option>
-			  	<option>因竞争丢失关闭</option>
+			  	<c:forEach items="${stage}" var="s">
+					<option value="${s.value}">${s.text}</option>
+				</c:forEach>
 			  </select>
 			</div>
 		</div>
@@ -181,8 +246,9 @@ request.getContextPath() + "/";
 			<div class="col-sm-10" style="width: 300px;">
 				<select class="form-control" id="create-transactionType">
 				  <option></option>
-				  <option>已有业务</option>
-				  <option>新业务</option>
+					<c:forEach items="${transactionType}" var="t">
+						<option value="${t.value}">${t.text}</option>
+					</c:forEach>
 				</select>
 			</div>
 			<label for="create-possibility" class="col-sm-2 control-label">可能性</label>
@@ -196,32 +262,23 @@ request.getContextPath() + "/";
 			<div class="col-sm-10" style="width: 300px;">
 				<select class="form-control" id="create-clueSource">
 				  <option></option>
-				  <option>广告</option>
-				  <option>推销电话</option>
-				  <option>员工介绍</option>
-				  <option>外部介绍</option>
-				  <option>在线商场</option>
-				  <option>合作伙伴</option>
-				  <option>公开媒介</option>
-				  <option>销售邮件</option>
-				  <option>合作伙伴研讨会</option>
-				  <option>内部研讨会</option>
-				  <option>交易会</option>
-				  <option>web下载</option>
-				  <option>web调研</option>
-				  <option>聊天</option>
+					<c:forEach items="${source}" var="s">
+						<option value="${s.value}">${s.text}</option>
+					</c:forEach>
 				</select>
 			</div>
 			<label for="create-activitySrc" class="col-sm-2 control-label">市场活动源&nbsp;&nbsp;<a href="javascript:void(0);" data-toggle="modal" data-target="#findMarketActivity"><span class="glyphicon glyphicon-search"></span></a></label>
 			<div class="col-sm-10" style="width: 300px;">
-				<input type="text" class="form-control" id="create-activitySrc">
+				<input type="text" value="打杂" class="form-control" id="create-activitySrc">
+				<input type="hidden" name="activityId" value="6118d34b8da64b27b81edc7ee14e2830"/>
 			</div>
 		</div>
 		
 		<div class="form-group">
 			<label for="create-contactsName" class="col-sm-2 control-label">联系人名称&nbsp;&nbsp;<a href="javascript:void(0);" data-toggle="modal" data-target="#findContacts"><span class="glyphicon glyphicon-search"></span></a></label>
 			<div class="col-sm-10" style="width: 300px;">
-				<input type="text" class="form-control" id="create-contactsName">
+				<input type="text" value="马云" class="form-control" id="create-contactsName">
+				<input type="hidden" name="contactsId" value="d5240882c9a34ec09e24700d168ba7fd"/>
 			</div>
 		</div>
 		
@@ -242,7 +299,7 @@ request.getContextPath() + "/";
 		<div class="form-group">
 			<label for="create-nextContactTime" class="col-sm-2 control-label">下次联系时间</label>
 			<div class="col-sm-10" style="width: 300px;">
-				<input type="text" class="form-control" id="create-nextContactTime">
+				<input type="text" class="form-control time2" id="create-nextContactTime">
 			</div>
 		</div>
 		

@@ -10,6 +10,7 @@ import java.util.Map;
 
 public interface ActivityService {
     boolean saveActivity(Activity activity) throws ActivityException;
+
     PageVo<Activity> pageList(Map<String,Object> map);
 
     boolean delete(String[] ids);
@@ -27,4 +28,10 @@ public interface ActivityService {
     boolean saveRemark(ActivityRemark activityRemark);
 
     boolean editRemark(ActivityRemark activityRemark);
+
+    List<Activity> getActivityListByClueId(String clueId);
+
+    List<Activity> getActivityListByName(String name, String clueId);
+
+    List<Activity> getActivityByName(String activityName);
 }

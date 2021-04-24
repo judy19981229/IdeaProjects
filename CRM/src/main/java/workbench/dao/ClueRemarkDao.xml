@@ -4,7 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="workbench.dao.ClueRemarkDao">
-	
+
+	<select id="getByClueId" resultType="ClueRemark">
+        select * from tbl_clue_remark where clueId=#{clueID}
+    </select>
+
+    <delete id="deleteById">
+        delete from tbl_clue_remark where id=#{id}
+    </delete>
   	
 </mapper>
 

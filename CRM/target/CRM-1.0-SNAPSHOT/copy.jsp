@@ -27,6 +27,17 @@
     <body>
         <script src="static/jquery-3.6.0.min.js"></script>
         <script type="text/javascript">
+
+            //日期时间选择器
+            $(".time").datetimepicker({
+                minView: "month",
+                language:  'zh-CN',
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayBtn: true,
+                pickerPosition: "bottom-left"
+            });
+
             $.ajax({
                 url:"",
                 data:{

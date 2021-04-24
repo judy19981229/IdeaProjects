@@ -4,9 +4,21 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="workbench.dao.ClueActivityRelationDao">
-	
-	
-  	
+
+    <delete id="deleteClue">
+        delete from tbl_clue_activity_relation where id=#{id}
+    </delete>
+
+    <insert id="bund">
+        insert into tbl_clue_activity_relation(id,clueID,activityId)
+        values(#{id},#{clueId},#{activityId})
+    </insert>
+
+	<select id="getByClueId" resultType="ClueActivityRelation">
+        select * from tbl_clue_activity_relation where clueId=#{clueId}
+    </select>
+
+
 </mapper>
 
 

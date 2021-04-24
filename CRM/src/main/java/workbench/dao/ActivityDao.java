@@ -1,5 +1,6 @@
 package workbench.dao;
 
+import org.apache.ibatis.annotations.Param;
 import workbench.entity.Activity;
 
 import java.util.List;
@@ -16,4 +17,11 @@ public interface ActivityDao {
     int updateActivity(Activity activity);
 
     Activity detail(String id);
+
+    List<Activity> getActivityListByClueId(String clueId);
+
+    List<Activity> getActivityListByName(@Param("name") String name,
+                                         @Param("clueId") String clueId);
+
+    List<Activity> getActivityByName(String activityName);
 }

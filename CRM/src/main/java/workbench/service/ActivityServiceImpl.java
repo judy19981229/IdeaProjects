@@ -10,6 +10,7 @@ import workbench.entity.Activity;
 import workbench.entity.ActivityRemark;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -113,5 +114,25 @@ public class ActivityServiceImpl implements ActivityService{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public List<Activity> getActivityListByClueId(String clueId) {
+        List<Activity> list=new ArrayList<>();
+        list=activityDao.getActivityListByClueId(clueId);
+        return list;
+    }
+
+    @Override
+    public List<Activity> getActivityListByName(String name, String clueId) {
+        List<Activity> list=activityDao.getActivityListByName(name,clueId);
+        return list;
+    }
+
+    @Override
+    public List<Activity> getActivityByName(String activityName) {
+        List<Activity> list=new ArrayList();
+        list=activityDao.getActivityByName(activityName);
+        return list;
     }
 }

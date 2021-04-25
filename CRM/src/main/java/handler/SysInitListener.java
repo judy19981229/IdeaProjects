@@ -8,10 +8,7 @@ import settings.service.DicServiceImpl;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class SysInitListener implements ServletContextListener {
     //该方法用来监听上下文域对象，服务器启动，上下文域对象创建，执行该方法
@@ -29,7 +26,21 @@ public class SysInitListener implements ServletContextListener {
         for(String key:set){
             application.setAttribute(key,map.get(key));
         }
+        //处理Stage2Possibility.properties文件
+        //将文件中的键值对关系处理成Java中的键值对关系,Map<String(阶段),String(可能性)> pMap
+        //pMap.put("01资质审查",10)... application.setAttribute("pMap",pMap)
+        Map<String,String> pMap=new HashMap<>();
+        //解析properties文件
+        ResourceBundle rb=ResourceBundle.getBundle("Stage2Possibility");
+        Enumeration<String> e=rb.getKeys();
+        while(e.hasMoreElements()){
+            String key=e.nextElement();//阶段
+            String value=rb.getString(key);//可能性
+            pMap.put(key,value);
+        }
+        application.setAttribute("pMap",pMap);
     }
+
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {

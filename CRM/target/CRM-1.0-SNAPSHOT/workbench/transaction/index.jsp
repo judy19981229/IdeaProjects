@@ -157,8 +157,8 @@ request.getContextPath() + "/";
 					<tbody>
 						<tr>
 							<td><input type="checkbox" /></td>
-							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='workbench/transaction/detail.jsp';">动力节点-交易01</a></td>
-							<td>动力节点</td>
+							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='workbench/transaction/detail?id=a2e8af53d6f04473a27c074fb34b671a';">打杂</a></td>
+							<td>阿里巴巴</td>
 							<td>谈判/复审</td>
 							<td>新业务</td>
 							<td>zhangsan</td>
@@ -167,8 +167,8 @@ request.getContextPath() + "/";
 						</tr>
                         <tr class="active">
                             <td><input type="checkbox" /></td>
-                            <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='workbench/transaction/detail.jsp';">动力节点-交易01</a></td>
-                            <td>动力节点</td>
+                            <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='workbench/transaction/detail.jsp';">吃瓜</a></td>
+                            <td>美团</td>
                             <td>谈判/复审</td>
                             <td>新业务</td>
                             <td>zhangsan</td>

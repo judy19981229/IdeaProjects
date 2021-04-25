@@ -13,7 +13,20 @@
         #{description},#{customerId},#{contactSummary},#{contactsId},#{type})
 
     </insert>
-  	
+
+  	<select id="getById" resultType="Tran">
+        select t.id,u.name as owner,t.money,t.name,t.expectedDate,
+        c.name as customerId,t.stage,t.type,t.source,a.name as activityId,
+        con.fullname as contactsId,t.createBy,t.createTime,t.editBy,t.editTime,
+        t.description,t.contactSummary,t.nextContactTime
+        from tbl_tran t
+        left join tbl_user u on u.id=t.owner
+        left join tbl_customer c on c.id=t.customerId
+        left join tbl_activity a on a.id=t.activityId
+        left join tbl_contacts con on con.id=t.contactsId
+        where t.id=#{id}
+    </select>
+
 </mapper>
 
 

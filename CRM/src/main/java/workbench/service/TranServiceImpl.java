@@ -12,6 +12,7 @@ import workbench.entity.TranHistory;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -81,5 +82,41 @@ public class TranServiceImpl implements TranService{
         List<TranHistory> list=new ArrayList<>();
         list=tranHistoryDao.getHistoryList(tranId);
         return list;
+    }
+
+    @Override
+    public boolean changeStage(Tran tran) {
+        boolean flag=true;
+        //改变交易阶段
+        int count1=tranDao.changeStage(tran);
+        if(count1!=1){
+            flag=false;
+        }
+        //生成交易历史
+        TranHistory tranHistory=new TranHistory();
+        tranHistory.setId(UUIDUtil.getUUID());
+        tranHistory.setCreateTime(DateTimeUtil.getSysTime());
+        //这里要注意，交易历史的创建人是交易的修改人
+        tranHistory.setCreateBy(tran.getEditBy());
+        tranHistory.setMoney(tran.getMoney());
+        tranHistory.setExpectedDate(tran.getExpectedDate());
+        tranHistory.setTranId(tran.getId());
+        int count2= tranHistoryDao.save(tranHistory);
+        if(count2!=1){
+            flag=false;
+        }
+        return flag;
+    }
+
+    @Override
+    public Map<String, Object> getCharts() {
+        //取得total
+        int total=tranDao.getTotal();
+        //取得dataList(name:value)
+        List<Map<String,Object>> dataList=tranDao.getCharts();
+        Map<String,Object> map=new HashMap<>();
+        map.put("total",total);
+        map.put("dataList",dataList);
+        return map;
     }
 }

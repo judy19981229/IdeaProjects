@@ -9,6 +9,7 @@ import settings.entity.User;
 import settings.service.UserService;
 import utils.DateTimeUtil;
 import utils.UUIDUtil;
+import vo.PageVo;
 import workbench.dao.ContactsDao;
 import workbench.entity.Activity;
 import workbench.entity.Contacts;
@@ -23,6 +24,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -149,4 +151,34 @@ public class TranController {
     }
 
 
+    @RequestMapping("/workbench/transaction/changeStage")
+    @ResponseBody
+    public Map<String,Object> changeStage(Tran tran,
+                                          HttpServletRequest request){
+        Map<String,Object> map=new HashMap<>();
+
+        tran.setEditTime(DateTimeUtil.getSysTime());
+        User user= (User) request.getSession().getAttribute("user");
+        tran.setEditBy(user.getName());
+        map.put("tran",tran);
+
+        boolean flag=tranService.changeStage(tran);
+        ServletContext application =request.getServletContext();
+        map.put("success",flag);
+
+        Map<String,String> pMap= (Map) application.getAttribute("pMap");
+        String possibility=pMap.get(tran.getStage());
+        map.put("possibility",possibility);
+
+        return map;
+    }
+
+    @RequestMapping("/workbench/transaction/getCharts")
+    @ResponseBody
+    public Map<String,Object> getCharts(){
+        //业务层返回 total和dataList，通过Map打包以上两项内容
+        Map<String,Object> map=new HashMap<>();
+        map=tranService.getCharts();
+        return map;
+    }
 }

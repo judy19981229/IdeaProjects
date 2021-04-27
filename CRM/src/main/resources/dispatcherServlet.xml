@@ -34,6 +34,8 @@
     <mvc:resources mapping="/static/**" location="/static/"/>
     <mvc:resources mapping="/jquery/**" location="/jquery/"/>
     <mvc:resources mapping="/image/**" location="/image/"/>
+    <mvc:resources mapping="/ECharts/**" location="/ECharts/"/>
+
 
     <!--声明拦截器,拦截后台请求-->
     <mvc:interceptors>
